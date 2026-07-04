@@ -1,5 +1,5 @@
 
-# JECA - Java Enterprise Coding Agent
+# Aster - AI coding agent
 
 
 ## Stack
@@ -26,25 +26,12 @@ Azure OpenAI (required):
 - `AZURE_OPENAI_ENDPOINT`
 - `AZURE_OPENAI_DEPLOYMENT_NAME`
 
-Microsoft SQL Server (optional, required only for DB tools):
-
-- `DATABASE_URL`
-- `DATABASE_NAME`
-- `DATABASE_USER`
-- `DATABASE_PASSWORD`
-- `DATABASE_PORT`
-
 Or create env variables in your OS <br>
 Mac/Linux:
 ```bash
 export AZURE_OPENAI_API_KEY=<your-api-key>
 export AZURE_OPENAI_ENDPOINT=<your-endpoint>
 export AZURE_OPENAI_DEPLOYMENT_NAME=<your-deployment-name>
-export DATABASE_URL=<your-db-host>
-export DATABASE_NAME=<your-db-name>
-export DATABASE_USER=<your-db-user>
-export DATABASE_PASSWORD=<your-db-password>
-export DATABASE_PORT=<your-db-port>
 ```
 
 Windows
