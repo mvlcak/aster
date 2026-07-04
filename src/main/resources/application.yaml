@@ -1,0 +1,21 @@
+spring:
+  config:
+    import: optional:file:env.properties
+  main:
+    banner-mode: log
+  ai:
+    openai:
+      api-key: ${AZURE_OPENAI_API_KEY}
+      base-url: ${AZURE_OPENAI_ENDPOINT}
+      chat:
+        model: ${AZURE_OPENAI_DEPLOYMENT_NAME}
+logging:
+  file:
+    name: .aster/aster.log
+  level:
+    dev.mvlcak.aster: INFO
+aster:
+  tui:
+    app-name: Aster
+    tick-rate-ms: 75
+    resize-grace-period-ms: 50
