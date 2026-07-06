@@ -109,6 +109,14 @@ public class AppState {
         streaming = false;
     }
 
+    public synchronized void completeAssistantResponseText(String text) {
+        if (pendingAssistantSlot >= 0) {
+            messages.set(pendingAssistantSlot, new ChatTranscriptEntry(ChatRole.ASSISTANT, text));
+        }
+        pendingAssistantSlot = NO_PENDING_SLOT;
+        streaming = false;
+    }
+
     public synchronized void abortAssistantResponse(String reason) {
         if (pendingAssistantSlot >= 0) {
             messages.remove(pendingAssistantSlot);

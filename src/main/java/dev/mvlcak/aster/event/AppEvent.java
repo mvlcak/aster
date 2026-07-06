@@ -6,10 +6,14 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public sealed interface AppEvent permits
         AppEvent.UserInput, AppEvent.AssistantFail,
-        AppEvent.SystemMessage, AppEvent.AssistantComplete {
+        AppEvent.SystemMessage, AppEvent.AssistantComplete,
+        AppEvent.AssistantCompleteText {
 
     record UserInput(String text) implements AppEvent {}
     record AssistantComplete(AtomicReference<ChatResponse> chatResponse) implements AppEvent {}
+
+    record AssistantCompleteText(String text) implements AppEvent {
+    }
     record AssistantFail(String error) implements AppEvent {}
     record SystemMessage(String text) implements AppEvent {}
 }

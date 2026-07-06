@@ -291,6 +291,113 @@
       "type": "com.openai.models.ReasoningEffort"
     },
     {
+      "type": "com.openai.models.chat.completions.ChatCompletion",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonValue",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "int",
+            "kotlin.jvm.internal.DefaultConstructorMarker"
+          ]
+        },
+        {
+          "name": "putAdditionalProperty",
+          "parameterTypes": [
+            "java.lang.String",
+            "com.openai.core.JsonValue"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Builder"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Choice",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField"
+          ]
+        },
+        {
+          "name": "putAdditionalProperty",
+          "parameterTypes": [
+            "java.lang.String",
+            "com.openai.core.JsonValue"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$Builder"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$Companion"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$FinishReason",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "com.openai.core.JsonField"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$FinishReason$Companion"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$FinishReason$Known"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$FinishReason$Value"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$Logprobs"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Companion"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$Moderation"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$ServiceTier",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "com.openai.core.JsonField"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$ServiceTier$Companion"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$ServiceTier$Known"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletion$ServiceTier$Value"
+    },
+    {
       "type": "com.openai.models.chat.completions.ChatCompletionAssistantMessageParam",
       "methods": [
         {
@@ -352,163 +459,10 @@
       "type": "com.openai.models.chat.completions.ChatCompletionAssistantMessageParam$FunctionCall"
     },
     {
+      "type": "com.openai.models.chat.completions.ChatCompletionAudio"
+    },
+    {
       "type": "com.openai.models.chat.completions.ChatCompletionAudioParam"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonValue",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "int",
-            "kotlin.jvm.internal.DefaultConstructorMarker"
-          ]
-        },
-        {
-          "name": "putAdditionalProperty",
-          "parameterTypes": [
-            "java.lang.String",
-            "com.openai.core.JsonValue"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField"
-          ]
-        },
-        {
-          "name": "putAdditionalProperty",
-          "parameterTypes": [
-            "java.lang.String",
-            "com.openai.core.JsonValue"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Delta",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "int",
-            "kotlin.jvm.internal.DefaultConstructorMarker"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Delta$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Delta$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Delta$FunctionCall"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Delta$Role",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Delta$Role$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Delta$Role$Known"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Delta$Role$Value"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Delta$ToolCall"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$FinishReason",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$FinishReason$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$FinishReason$Known"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$FinishReason$Value"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Choice$Logprobs"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$Moderation"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$ServiceTier",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$ServiceTier$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$ServiceTier$Known"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionChunk$ServiceTier$Value"
     },
     {
       "type": "com.openai.models.chat.completions.ChatCompletionCreateParams",
@@ -740,6 +694,111 @@
       "type": "com.openai.models.chat.completions.ChatCompletionFunctionTool$Companion"
     },
     {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessage",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonValue",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "int",
+            "kotlin.jvm.internal.DefaultConstructorMarker"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Annotation"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Annotation$Builder"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Annotation$Companion"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Annotation$UrlCitation"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Builder"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Companion"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessage$FunctionCall"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonValue"
+          ]
+        },
+        {
+          "name": "_additionalProperties",
+          "parameterTypes": []
+        },
+        {
+          "name": "_function",
+          "parameterTypes": []
+        },
+        {
+          "name": "_id",
+          "parameterTypes": []
+        },
+        {
+          "name": "_type",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Builder"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Companion"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Function",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "com.openai.core.JsonField",
+            "com.openai.core.JsonField"
+          ]
+        },
+        {
+          "name": "_additionalProperties",
+          "parameterTypes": []
+        },
+        {
+          "name": "_arguments",
+          "parameterTypes": []
+        },
+        {
+          "name": "_name",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Function$Builder"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Function$Companion"
+    },
+    {
       "type": "com.openai.models.chat.completions.ChatCompletionMessageParam"
     },
     {
@@ -755,30 +814,28 @@
       "type": "com.openai.models.chat.completions.ChatCompletionMessageToolCall"
     },
     {
-      "type": "com.openai.models.chat.completions.ChatCompletionPredictionContent"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionStreamOptions",
+      "type": "com.openai.models.chat.completions.ChatCompletionMessageToolCall$Deserializer",
       "methods": [
         {
-          "name": "_additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "_includeObfuscation",
-          "parameterTypes": []
-        },
-        {
-          "name": "_includeUsage",
+          "name": "<init>",
           "parameterTypes": []
         }
       ]
     },
     {
-      "type": "com.openai.models.chat.completions.ChatCompletionStreamOptions$Builder"
+      "type": "com.openai.models.chat.completions.ChatCompletionMessageToolCall$Serializer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
-      "type": "com.openai.models.chat.completions.ChatCompletionStreamOptions$Companion"
+      "type": "com.openai.models.chat.completions.ChatCompletionPredictionContent"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionStreamOptions"
     },
     {
       "type": "com.openai.models.chat.completions.ChatCompletionTool"
@@ -794,6 +851,45 @@
     },
     {
       "type": "com.openai.models.chat.completions.ChatCompletionToolChoiceOption"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam",
+      "methods": [
+        {
+          "name": "_additionalProperties",
+          "parameterTypes": []
+        },
+        {
+          "name": "_content",
+          "parameterTypes": []
+        },
+        {
+          "name": "_role",
+          "parameterTypes": []
+        },
+        {
+          "name": "_toolCallId",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam$Builder"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam$Companion"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam$Content"
+    },
+    {
+      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam$Content$Serializer",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
     },
     {
       "type": "com.openai.models.chat.completions.ChatCompletionUserMessageParam",
@@ -845,6 +941,13 @@
             "com.openai.core.JsonField",
             "com.openai.core.JsonField",
             "com.openai.core.JsonField"
+          ]
+        },
+        {
+          "name": "putAdditionalProperty",
+          "parameterTypes": [
+            "java.lang.String",
+            "com.openai.core.JsonValue"
           ]
         }
       ]
@@ -1018,6 +1121,16 @@
           ]
         },
         {
+          "name": "codeReviewClient",
+          "parameterTypes": [
+            "org.springframework.ai.chat.model.ChatModel",
+            "org.springaicommunity.agent.tools.GrepTool",
+            "org.springaicommunity.agent.tools.FileSystemTools",
+            "org.springaicommunity.agent.tools.ShellTools",
+            "dev.mvlcak.aster.ai.tool.DiffTool"
+          ]
+        },
+        {
           "name": "messageChatMemoryAdvisor",
           "parameterTypes": [
             "org.springframework.ai.chat.memory.ChatMemory"
@@ -1028,7 +1141,9 @@
           "parameterTypes": [
             "org.springframework.ai.chat.client.ChatClient",
             "dev.mvlcak.aster.tui.AppState",
-            "dev.mvlcak.aster.event.AppEventBus"
+            "dev.mvlcak.aster.event.AppEventBus",
+            "dev.mvlcak.aster.ai.routing.RoutingWorkflow",
+            "dev.mvlcak.aster.ai.workflow.DevelopmentWorkflow"
           ]
         }
       ]
@@ -1151,10 +1266,68 @@
       ]
     },
     {
+      "type": "dev.mvlcak.aster.ai.routing.RoutingWorkflow",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "dev.mvlcak.aster.ai.workflow.DevelopmentWorkflow",
+            "dev.mvlcak.aster.ai.workflow.AnswerWorkflow",
+            "org.springframework.ai.chat.model.ChatModel"
+          ]
+        }
+      ]
+    },
+    {
       "type": "dev.mvlcak.aster.ai.tool.DiffTool"
     },
     {
       "type": "dev.mvlcak.aster.ai.tool.DiffTool$WhitespaceMode"
+    },
+    {
+      "type": "dev.mvlcak.aster.ai.workflow.AgentWorkflow"
+    },
+    {
+      "type": "dev.mvlcak.aster.ai.workflow.AnswerWorkflow",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.ai.chat.client.ChatClient"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dev.mvlcak.aster.ai.workflow.CodingEvaluatorOptimizerWorkflow",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.ai.chat.client.ChatClient"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dev.mvlcak.aster.ai.workflow.DevelopmentWorkflow",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "org.springframework.ai.chat.client.ChatClient",
+            "org.springframework.ai.chat.model.ChatModel",
+            "org.springaicommunity.agent.tools.FileSystemTools",
+            "org.springaicommunity.agent.tools.GrepTool",
+            "org.springaicommunity.agent.tools.ShellTools",
+            "dev.mvlcak.aster.ai.workflow.CodingEvaluatorOptimizerWorkflow",
+            "dev.mvlcak.aster.tui.AppState"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dev.mvlcak.aster.ai.workflow.EvaluatorOptimizerWorkflow"
     },
     {
       "type": "dev.mvlcak.aster.chat.StreamingChatService"
@@ -1356,16 +1529,7 @@
       "type": "int[]"
     },
     {
-      "type": "io.micrometer.context.ContextRegistry"
-    },
-    {
       "type": "io.micrometer.context.ContextSnapshot"
-    },
-    {
-      "type": "io.micrometer.context.ContextSnapshotFactory"
-    },
-    {
-      "type": "io.micrometer.context.ThreadLocalAccessor"
     },
     {
       "type": "io.micrometer.core.instrument.MeterRegistry"
@@ -1632,7 +1796,13 @@
       "type": "java.sql.Timestamp"
     },
     {
+      "type": "java.util.AbstractMap"
+    },
+    {
       "type": "java.util.Collection"
+    },
+    {
+      "type": "java.util.Collections$EmptyMap"
     },
     {
       "type": "java.util.Collections$UnmodifiableCollection"
@@ -2046,13 +2216,44 @@
       "type": "org.springaicommunity.agent.tools.FileSystemTools"
     },
     {
-      "type": "org.springaicommunity.agent.tools.GrepTool"
+      "type": "org.springaicommunity.agent.tools.GrepTool",
+      "methods": [
+        {
+          "name": "grep",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "org.springaicommunity.agent.tools.GrepTool$OutputMode",
+            "java.lang.Integer",
+            "java.lang.Integer",
+            "java.lang.Integer",
+            "java.lang.Boolean",
+            "java.lang.Boolean",
+            "java.lang.String",
+            "java.lang.Integer",
+            "java.lang.Integer",
+            "java.lang.Boolean"
+          ]
+        }
+      ]
     },
     {
       "type": "org.springaicommunity.agent.tools.GrepTool$OutputMode"
     },
     {
-      "type": "org.springaicommunity.agent.tools.ShellTools"
+      "type": "org.springaicommunity.agent.tools.ShellTools",
+      "methods": [
+        {
+          "name": "bash",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.Long",
+            "java.lang.String",
+            "java.lang.Boolean"
+          ]
+        }
+      ]
     },
     {
       "type": "org.springframework.ai.audio.transcription.TranscriptionModel"
@@ -4511,37 +4712,10 @@
       "type": "org.yaml.snakeyaml.Yaml"
     },
     {
-      "type": "reactor.core.publisher.FluxBufferPredicate$BufferPredicateSubscriber"
-    },
-    {
-      "type": "reactor.core.publisher.FluxConcatArray$ConcatArraySubscriber"
-    },
-    {
-      "type": "reactor.core.publisher.FluxCreate$BaseSink"
-    },
-    {
-      "type": "reactor.core.publisher.FluxCreate$BufferAsyncSink"
-    },
-    {
-      "type": "reactor.core.publisher.FluxCreate$SerializedFluxSink"
-    },
-    {
-      "type": "reactor.core.publisher.FluxDoFinally$DoFinallySubscriber"
-    },
-    {
-      "type": "reactor.core.publisher.FluxPublishOn$PublishOnConditionalSubscriber"
-    },
-    {
-      "type": "reactor.core.publisher.FluxSubscribeOnValue$ScheduledScalar"
-    },
-    {
       "type": "reactor.core.publisher.Hooks"
     },
     {
       "type": "reactor.core.publisher.Mono"
-    },
-    {
-      "type": "reactor.core.publisher.MonoFlatMapMany$FlatMapManyMain"
     },
     {
       "type": "reactor.core.scheduler.BoundedElasticScheduler"
@@ -4553,12 +4727,6 @@
       "type": "reactor.core.scheduler.BoundedElasticScheduler$BoundedState"
     },
     {
-      "type": "reactor.core.scheduler.SchedulerTask"
-    },
-    {
-      "type": "reactor.core.scheduler.WorkerTask"
-    },
-    {
       "type": "reactor.netty.contextpropagation.ChannelContextAccessor"
     },
     {
@@ -4566,21 +4734,6 @@
     },
     {
       "type": "reactor.tools.agent.ReactorDebugAgent"
-    },
-    {
-      "type": "reactor.util.concurrent.MpscLinkedQueue"
-    },
-    {
-      "type": "reactor.util.concurrent.MpscLinkedQueue$LinkedQueueNode"
-    },
-    {
-      "type": "reactor.util.concurrent.SpscArrayQueueConsumer"
-    },
-    {
-      "type": "reactor.util.concurrent.SpscArrayQueueProducer"
-    },
-    {
-      "type": "reactor.util.concurrent.SpscLinkedArrayQueue"
     },
     {
       "type": "reactor.util.context.ReactorContextAccessor"
@@ -5271,6 +5424,27 @@
     },
     {
       "glob": "dev/mvlcak/aster/ai/config/ToolConfig.class"
+    },
+    {
+      "glob": "dev/mvlcak/aster/ai/routing/RoutingWorkflow$RouteDecision.class"
+    },
+    {
+      "glob": "dev/mvlcak/aster/ai/routing/RoutingWorkflow.class"
+    },
+    {
+      "glob": "dev/mvlcak/aster/ai/workflow/AgentWorkflow.class"
+    },
+    {
+      "glob": "dev/mvlcak/aster/ai/workflow/AnswerWorkflow.class"
+    },
+    {
+      "glob": "dev/mvlcak/aster/ai/workflow/CodingEvaluatorOptimizerWorkflow.class"
+    },
+    {
+      "glob": "dev/mvlcak/aster/ai/workflow/DevelopmentWorkflow.class"
+    },
+    {
+      "glob": "dev/mvlcak/aster/ai/workflow/EvaluatorOptimizerWorkflow.class"
     },
     {
       "glob": "dev/mvlcak/aster/tui/config/AppConfig.class"

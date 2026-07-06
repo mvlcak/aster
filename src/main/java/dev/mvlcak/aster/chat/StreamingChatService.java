@@ -1,5 +1,7 @@
 package dev.mvlcak.aster.chat;
 
+import dev.mvlcak.aster.ai.routing.RoutingWorkflow;
+import dev.mvlcak.aster.ai.workflow.DevelopmentWorkflow;
 import dev.mvlcak.aster.event.AppEvent;
 import dev.mvlcak.aster.event.AppEventBus;
 import dev.mvlcak.aster.tui.AppState;
@@ -20,11 +22,16 @@ public class StreamingChatService {
     private final ChatClient chatClient;
     private final AppState appState;
     private final AppEventBus bus;
+    private final RoutingWorkflow routingWorkflow;
+    private final DevelopmentWorkflow developmentWorkflow;
 
-    public StreamingChatService(ChatClient chatClient, AppState appState, AppEventBus bus) {
+    public StreamingChatService(ChatClient chatClient, AppState appState, AppEventBus bus,
+                                RoutingWorkflow routingWorkflow, DevelopmentWorkflow developmentWorkflow) {
         this.chatClient = chatClient;
         this.appState = appState;
         this.bus = bus;
+        this.routingWorkflow = routingWorkflow;
+        this.developmentWorkflow = developmentWorkflow;
     }
 
     public void startStream(String text) {
@@ -32,29 +39,40 @@ public class StreamingChatService {
     }
 
     private void streamConversation(String text) {
+        try {
+            RoutingWorkflow.RouteDecision decision = routingWorkflow.decide(text);
+
+            if ("development".equals(decision.operation())) {
+                String result = developmentWorkflow.runWorkflow(decision.value());
+                bus.dispatch(new AppEvent.AssistantCompleteText(result));
+                return;
+            }
+
+            streamAnswer(decision.value());
+        } catch (Exception e) {
+            bus.dispatch(new AppEvent.AssistantFail("Chat failed: " + rootCauseMessage(e)));
+        }
+    }
+
+    private void streamAnswer(String text) {
         AtomicReference<ChatResponse> aggregatedResponse = new AtomicReference<>();
         MessageAggregator aggregator = new MessageAggregator();
 
-        try {
-            Flux<ChatResponse> responseFlux = chatClient
-                    .prompt()
-                    .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, 1))
-                    .user(text)
-                    .toolContext(Map.of(
-                            "workingDirectory", appState.workingDirectory(),
-                            "executionMode", "BUILD"
-                    ))
-                    .stream()
-                    .chatResponse();
+        Flux<ChatResponse> responseFlux = chatClient
+                .prompt()
+                .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, 1))
+                .user(text)
+                .toolContext(Map.of(
+                        "workingDirectory", appState.workingDirectory(),
+                        "executionMode", "BUILD"
+                ))
+                .stream()
+                .chatResponse();
 
-            aggregator.aggregate(responseFlux, aggregatedResponse::set)
-                    .blockLast();
+        aggregator.aggregate(responseFlux, aggregatedResponse::set)
+                .blockLast();
 
-            bus.dispatch(new AppEvent.AssistantComplete(aggregatedResponse));
-        }
-        catch (Exception e) {
-            bus.dispatch(new AppEvent.AssistantFail("Chat failed: " + rootCauseMessage(e)));
-        }
+        bus.dispatch(new AppEvent.AssistantComplete(aggregatedResponse));
     }
 
     private String rootCauseMessage(Throwable throwable) {

@@ -1,6 +1,8 @@
 package dev.mvlcak.aster.ai.config;
 
+import dev.mvlcak.aster.ai.routing.RoutingWorkflow;
 import dev.mvlcak.aster.ai.tool.DiffTool;
+import dev.mvlcak.aster.ai.workflow.DevelopmentWorkflow;
 import dev.mvlcak.aster.chat.StreamingChatService;
 import dev.mvlcak.aster.event.AppEventBus;
 import dev.mvlcak.aster.tui.AppState;
@@ -56,11 +58,31 @@ public class AiConfig {
 				.build();
     }
 
+	@Bean
+	public ChatClient codeReviewClient(ChatModel chatModel, GrepTool grepTool, FileSystemTools fileSystemTools, ShellTools shellTools, DiffTool diffTool) {
+		return ChatClient
+				.builder(chatModel)
+				.defaultSystem(
+						"""
+								Your task is to review code, whether it does what it should.
+								You should validate it against plan.
+								You must adhere to best practices.
+								Point out bugs or issues.
+								If you are working with compiled programming language like Java or Typescript
+								use compiler to validate syntax
+								"""
+				)
+				.defaultTools(grepTool, fileSystemTools, shellTools, diffTool)
+				.build();
+
+	}
 
 	@Bean
 	public StreamingChatService streamingChatService(@Qualifier("chatClient") ChatClient statelessChatClient,
-	                                                 AppState appState, AppEventBus appEventBus) {
-		return new StreamingChatService(statelessChatClient, appState, appEventBus);
+	                                                 AppState appState, AppEventBus appEventBus,
+	                                                 RoutingWorkflow routingWorkflow,
+	                                                 DevelopmentWorkflow developmentWorkflow) {
+		return new StreamingChatService(statelessChatClient, appState, appEventBus, routingWorkflow, developmentWorkflow);
 	}
 
 }

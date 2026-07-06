@@ -26,8 +26,7 @@ public class AppEventLoop {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 process(bus.take());
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException _) {
                 Thread.currentThread().interrupt();
                 break;
             }
@@ -47,6 +46,7 @@ public class AppEventLoop {
                 streamingChatService.startStream(text);
             }
             case AppEvent.AssistantComplete(AtomicReference<ChatResponse> chatResponse) -> appState.completeAssistantResponse(chatResponse);
+            case AppEvent.AssistantCompleteText(String text) -> appState.completeAssistantResponseText(text);
             case AppEvent.AssistantFail(String error) -> appState.abortAssistantResponse(error);
             case AppEvent.SystemMessage(String text) -> appState.appendSystemMessage(text);
         }
