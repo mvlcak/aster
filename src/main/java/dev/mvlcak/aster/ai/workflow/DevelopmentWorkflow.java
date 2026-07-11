@@ -1,12 +1,16 @@
 package dev.mvlcak.aster.ai.workflow;
 
+import dev.mvlcak.aster.event.AppEvent;
+import dev.mvlcak.aster.event.AppEventBus;
 import dev.mvlcak.aster.tui.AppState;
 import org.springaicommunity.agent.tools.FileSystemTools;
 import org.springaicommunity.agent.tools.GrepTool;
 import org.springaicommunity.agent.tools.ShellTools;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.ResponseEntity;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -22,8 +26,9 @@ public class DevelopmentWorkflow implements AgentWorkflow {
     private final ShellTools shellTools;
     private final CodingEvaluatorOptimizerWorkflow codingEvaluatorOptimizerWorkflow;
     private final AppState appState;
+    private final AppEventBus appEventBus;
 
-    public DevelopmentWorkflow(ChatClient chatClient, ChatModel chatModel, FileSystemTools fileSystemTools, GrepTool grepTool, ShellTools shellTools, CodingEvaluatorOptimizerWorkflow codingEvaluatorOptimizerWorkflow, AppState appState) {
+    public DevelopmentWorkflow(ChatClient chatClient, ChatModel chatModel, FileSystemTools fileSystemTools, GrepTool grepTool, ShellTools shellTools, CodingEvaluatorOptimizerWorkflow codingEvaluatorOptimizerWorkflow, AppState appState, AppEventBus appEventBus) {
         this.chatClient = chatClient;
         this.chatModel = chatModel;
         this.fileSystemTools = fileSystemTools;
@@ -31,41 +36,65 @@ public class DevelopmentWorkflow implements AgentWorkflow {
         this.shellTools = shellTools;
         this.codingEvaluatorOptimizerWorkflow = codingEvaluatorOptimizerWorkflow;
         this.appState = appState;
+        this.appEventBus = appEventBus;
+    }
+
+    public record DevelopmentSummary(String answer, String summary) {
+    }
+
+    public record PlanSummary(Map<String, String> fileChanges, String summary) {
     }
 
     @Override
-    public String runWorkflow(String userInput) {
+    public void runWorkflow(String userInput) {
+        runDevelopmentWorkflow(userInput);
+    }
+
+    public void runDevelopmentWorkflow(String userInput) {
 
         //plan
-        String plan = ChatClient
+        appState.setActivityStatus("planning");
+
+        ResponseEntity<ChatResponse, PlanSummary> planResponse = ChatClient
                 .builder(chatModel)
-                .defaultTools(fileSystemTools, grepTool, shellTools)
+                .defaultTools(fileSystemTools, grepTool)
                 .build()
                 .prompt(
                         """
-                                You are Planning coding agent that creates planned prompt
-                                for coding agent.
+                                Create plan for Coding Agent from user input
                                 
-                                Here is user input for coding agent
                                 # USER INPUT START
                                 %s
                                 # USER INPUT END
                                 
-                                Use tools to analyse project and its files and create detailed
-                                plan for AI coding agent to follow
-                                """.formatted(userInput)).call().content();
+                                Use tools to analyse project and its files and create
+                                plan for AI coding agent to follow.
+                                
+                                Don't overcomplicate stuff, if it's simple change make plan simple
+                                
+                                fill out fileChanges Map<String,String> with key as filePath + fileName
+                                and value as plan what to do in this file
+                                
+                                Give 1 sentence summary to dedicated summary attribute
+                                """.formatted(userInput)).call().responseEntity(PlanSummary.class);
+        appState.countTokens(planResponse.response());
+        appEventBus.dispatch(new AppEvent.AssistantSummary(planResponse.getEntity().summary()));
 
-        //EvaluationOptimizer
         //develop
-        //evaluate - compile
-        Map<String, String> suggestions = codingEvaluatorOptimizerWorkflow.evaluate(plan);
+        appState.setActivityStatus("developing");
+        ResponseEntity<ChatResponse, DevelopmentSummary> result = chatClient.prompt(planResponse.entity().fileChanges()
+                        .entrySet().stream().map(e -> "- **%s**: %s".formatted(e.getKey(), e.getValue())).collect(Collectors.joining("\n"))
+                        + "\n Give 1 sentence summary to dedicated attribute")
+                .toolContext(Map.of(
+                        "workingDirectory", appState.workingDirectory(),
+                        "executionMode", "BUILD"))
+                .advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, 1))
+                .call()
+                .responseEntity(DevelopmentSummary.class);
+        appState.countTokens(result.response());
 
-        String finalSuggestions = suggestions.entrySet().stream()
-                .map(e -> "- **%s**: %s".formatted(e.getKey(), e.getValue()))
-                .collect(Collectors.joining("\n"));
-        return chatClient.prompt(finalSuggestions).toolContext(Map.of(
-                "workingDirectory", appState.workingDirectory(),
-                "executionMode", "BUILD"
-        )).advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, 1)).call().content();
+        //dispatch
+        appEventBus.dispatch(new AppEvent.AssistantCompleteText(result.entity().summary()));
+
     }
 }

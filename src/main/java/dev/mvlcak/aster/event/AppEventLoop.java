@@ -1,21 +1,18 @@
 package dev.mvlcak.aster.event;
 
-import dev.mvlcak.aster.chat.StreamingChatService;
+import dev.mvlcak.aster.chat.ChatService;
 import dev.mvlcak.aster.tui.AppState;
-import org.springframework.ai.chat.model.ChatResponse;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class AppEventLoop {
 
     private final AppEventBus bus;
     private final AppState appState;
-    private final StreamingChatService streamingChatService;
+    private final ChatService chatService;
 
-    public AppEventLoop(AppEventBus bus, AppState appState, StreamingChatService streamingChatService) {
+    public AppEventLoop(AppEventBus bus, AppState appState, ChatService chatService) {
         this.bus = bus;
         this.appState = appState;
-        this.streamingChatService = streamingChatService;
+        this.chatService = chatService;
     }
 
     public void start() {
@@ -43,10 +40,12 @@ public class AppEventLoop {
                 }
                 appState.appendUserMessage(text);
                 appState.startAssistantResponse();
-                streamingChatService.startStream(text);
+                chatService.startStream(text);
             }
-            case AppEvent.AssistantComplete(AtomicReference<ChatResponse> chatResponse) -> appState.completeAssistantResponse(chatResponse);
             case AppEvent.AssistantCompleteText(String text) -> appState.completeAssistantResponseText(text);
+            case AppEvent.AssistantDelta(String text) -> appState.appendAssistantDelta(text);
+            case AppEvent.AssistantStatus(String text) -> appState.setActivityStatus(text);
+            case AppEvent.AssistantSummary(String text) -> appState.completeAssistantSummary(text);
             case AppEvent.AssistantFail(String error) -> appState.abortAssistantResponse(error);
             case AppEvent.SystemMessage(String text) -> appState.appendSystemMessage(text);
         }

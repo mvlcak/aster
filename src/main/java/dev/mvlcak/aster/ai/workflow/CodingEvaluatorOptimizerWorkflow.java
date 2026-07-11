@@ -12,29 +12,29 @@ public class CodingEvaluatorOptimizerWorkflow implements EvaluatorOptimizerWorkf
 
     private static final String CODE_REVIEW_PROMPT =
             """
-                     You are an expert code reviewer proposing concrete improvements for a pull request.
+                    You are a code reviewer for an agentic AI workflow evaluator optimizer
                     
-                     Review the PR and identify specific, actionable improvements: correctness bugs,
-                     missed edge cases, and simplification opportunities. If previous suggestions and
-                     evaluator feedback are provided below, revise your suggestions to address that
-                     feedback directly instead of repeating what was already rejected.
+                    Review the code and identify specific, actionable improvements: correctness bugs,
+                    missed edge cases, and simplification opportunities. If previous suggestions and
+                    evaluator feedback are provided below, revise your suggestions to address that
+                    feedback directly instead of repeating what was already rejected.
                     
-                     Respond with ONLY a JSON object mapping each suggestion's location
-                     (e.g. "ClassName.java:methodName") to a concise description of the change to make.
-                     Do not wrap the JSON in markdown or add commentary.
+                    Respond with ONLY a JSON object mapping each suggestion's location
+                    (e.g. "ClassName.java:methodName") to a concise description of the change to make.
+                    Do not wrap the JSON in markdown or add commentary.
                     """;
 
     public static final String EVALUATE_PROPOSED_IMPROVEMENTS_PROMPT =
             """
-                     You are a strict senior reviewer judging whether proposed code improvements fully
-                     and correctly address the original PR task. Do not be lenient — only pass suggestions
-                     that are correct, complete, and free of new issues.
+                    You are a senior reviewer judging whether proposed code improvements fully
+                    and correctly address the original task. Do not be lenient — only pass suggestions
+                    that are correct, complete, and free of new issues.
                     
-                     Respond with ONLY a JSON object containing exactly one entry:
-                     - key: "PASS" if the suggestions fully address the task, otherwise "NEEDS_IMPROVEMENT"
-                     - value: your reasoning, and if NEEDS_IMPROVEMENT, specific guidance on what to fix
+                    Respond with ONLY a JSON object containing exactly one entry:
+                    - key: "PASS" if the suggestions fully address the task, otherwise "NEEDS_IMPROVEMENT"
+                    - value: your reasoning, and if NEEDS_IMPROVEMENT, specific guidance on what to fix
                     
-                     Do not wrap the JSON in markdown or add commentary.
+                    Do not wrap the JSON in markdown or add commentary.
                     """;
     private final ChatClient codeReviewClient;
     static final ParameterizedTypeReference<Map<String, String>> mapClass = new ParameterizedTypeReference<>() {
@@ -54,7 +54,7 @@ public class CodingEvaluatorOptimizerWorkflow implements EvaluatorOptimizerWorkf
         String outcome = evaluationResponse.keySet().iterator().next();
         evaluation = evaluationResponse.values().iterator().next();
 
-        if ("PASS".equals(outcome) || counter > 4) {
+        if ("PASS".equals(outcome) || counter > 2) {
             return latestSuggestions;
         }
         return loop(task, latestSuggestions, evaluation, counter + 1);
@@ -62,7 +62,7 @@ public class CodingEvaluatorOptimizerWorkflow implements EvaluatorOptimizerWorkf
 
     private Map<String, String> generate(String task, Map<String, String> previousSuggestions, String evaluation) {
         String request = CODE_REVIEW_PROMPT +
-                "\n PR: " + task +
+                "\n task: " + task +
                 "\n previous suggestions: " + previousSuggestions +
                 "\n evaluation on previous suggestions: " + evaluation;
 
@@ -75,7 +75,7 @@ public class CodingEvaluatorOptimizerWorkflow implements EvaluatorOptimizerWorkf
 
     private Map<String, String> evaluate(Map<String, String> latestSuggestions, String task) {
         String request = EVALUATE_PROPOSED_IMPROVEMENTS_PROMPT +
-                "\n PR: " + task +
+                "\n task: " + task +
                 "\n proposed suggestions: " + latestSuggestions;
 
         ChatClient.ChatClientRequestSpec requestSpec = codeReviewClient.prompt(request);

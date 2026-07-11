@@ -1,10 +1,12 @@
 package dev.mvlcak.aster.tui.config;
 
-import dev.mvlcak.aster.chat.StreamingChatService;
-import dev.mvlcak.aster.tui.CommandParser;
+import dev.mvlcak.aster.chat.ChatService;
 import dev.mvlcak.aster.event.AppEventBus;
 import dev.mvlcak.aster.event.AppEventLoop;
-import dev.mvlcak.aster.tui.*;
+import dev.mvlcak.aster.tui.AppState;
+import dev.mvlcak.aster.tui.ChatPane;
+import dev.mvlcak.aster.tui.CommandParser;
+import dev.mvlcak.aster.tui.TuiApp;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +33,8 @@ public class TuiConfig {
 
     @Bean
     public AppEventLoop appEventLoop(AppEventBus appEventBus, AppState appState,
-                                     StreamingChatService streamingChatService) {
-        return new AppEventLoop(appEventBus, appState, streamingChatService);
+                                     ChatService chatService) {
+        return new AppEventLoop(appEventBus, appState, chatService);
     }
 
     @Bean
@@ -48,9 +50,7 @@ public class TuiConfig {
             appEventLoop.start();
             try {
                 tuiApp.run();
-            }
-            catch (Exception e) {
-                System.out.println("Terminal not supported");
+            } catch (Exception _) {
                 System.exit(1);
             }
         };

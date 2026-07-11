@@ -5,7 +5,6 @@ import org.springframework.ai.chat.model.ChatResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class AppState {
 
@@ -15,6 +14,7 @@ public class AppState {
     private final String workingDirectory = System.getProperty("user.dir");
     private final List<ChatTranscriptEntry> messages = new ArrayList<>();
     private boolean streaming;
+    private String activityStatus = "";
     private int pendingAssistantSlot = NO_PENDING_SLOT;
     private long thinkingStartNanos;
     private long lastSpentTokens;
@@ -77,44 +77,55 @@ public class AppState {
     }
 
     public synchronized void appendSystemMessage(String text) {
-        messages.add(new ChatTranscriptEntry(ChatRole.SYSTEM, text));
+        messages.add(new ChatTranscriptEntry(ChatRole.ASSISTANT, text));
     }
 
     public synchronized void startAssistantResponse() {
         pendingAssistantSlot = messages.size();
-        messages.add(new ChatTranscriptEntry(ChatRole.ASSISTANT, ""));
         streaming = true;
+        activityStatus = "";
         thinkingStartNanos = System.nanoTime();
     }
 
-    public synchronized void completeAssistantResponse(AtomicReference<ChatResponse> chatResponse) {
-        String fallbackIfEmpty = extractText(chatResponse.get());
-        Usage usage = chatResponse.get().getMetadata().getUsage();
+    public synchronized void appendAssistantDelta(String delta) {
+        if (pendingAssistantSlot < 0 || delta == null || delta.isEmpty()) {
+            return;
+        }
+        ChatTranscriptEntry current = messages.get(pendingAssistantSlot);
+        messages.set(pendingAssistantSlot,
+                new ChatTranscriptEntry(ChatRole.ASSISTANT, current.text() + delta));
+    }
+
+    public synchronized void setActivityStatus(String status) {
+        this.activityStatus = status == null ? "" : status;
+    }
+
+    public synchronized String currentActivityStatus() {
+        return activityStatus;
+    }
+
+    public void countTokens(ChatResponse chatResponse) {
+        Usage usage = chatResponse.getMetadata().getUsage();
         lastInputTokens = usage.getPromptTokens();
         totalInputTokens = totalInputTokens + lastInputTokens;
         lastCompletionTokens = usage.getCompletionTokens();
         totalCompletionTokens = totalCompletionTokens + lastCompletionTokens;
         lastSpentTokens = usage.getTotalTokens();
         totalSpentTokens = totalSpentTokens + lastSpentTokens;
-        if (pendingAssistantSlot >= 0) {
-            ChatTranscriptEntry pending = messages.get(pendingAssistantSlot);
-            boolean isEmpty = pending.text() == null || pending.text().isBlank();
-            boolean hasFallback = fallbackIfEmpty != null && !fallbackIfEmpty.isBlank();
-            if (isEmpty && hasFallback) {
-                messages.set(pendingAssistantSlot,
-                        new ChatTranscriptEntry(ChatRole.ASSISTANT, fallbackIfEmpty));
-            }
-        }
-        pendingAssistantSlot = NO_PENDING_SLOT;
-        streaming = false;
     }
 
     public synchronized void completeAssistantResponseText(String text) {
         if (pendingAssistantSlot >= 0) {
-            messages.set(pendingAssistantSlot, new ChatTranscriptEntry(ChatRole.ASSISTANT, text));
+            messages.add(new ChatTranscriptEntry(ChatRole.ASSISTANT, text));
         }
         pendingAssistantSlot = NO_PENDING_SLOT;
         streaming = false;
+        activityStatus = "";
+    }
+
+    public synchronized void completeAssistantSummary(String text) {
+        appendSystemMessage(text);
+        streaming = true;
     }
 
     public synchronized void abortAssistantResponse(String reason) {
@@ -123,13 +134,8 @@ public class AppState {
             pendingAssistantSlot = NO_PENDING_SLOT;
         }
         streaming = false;
+        activityStatus = "";
         appendSystemMessage(reason);
     }
 
-    private String extractText(ChatResponse chatResponse) {
-        if (chatResponse == null || chatResponse.getResult() == null || chatResponse.getResult().getOutput() == null) {
-            return null;
-        }
-        return chatResponse.getResult().getOutput().getText();
-    }
 }

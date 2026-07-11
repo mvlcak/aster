@@ -49,9 +49,6 @@
       "type": "com.fasterxml.jackson.core.JsonGenerator"
     },
     {
-      "type": "com.fasterxml.jackson.core.type.TypeReference"
-    },
-    {
       "type": "com.fasterxml.jackson.databind.ObjectMapper"
     },
     {
@@ -95,906 +92,6 @@
     },
     {
       "type": "com.google.gson.Gson"
-    },
-    {
-      "type": "com.openai.core.Enum"
-    },
-    {
-      "type": "com.openai.core.JsonArray",
-      "methods": [
-        {
-          "name": "values",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.JsonArray$Companion"
-    },
-    {
-      "type": "com.openai.core.JsonBoolean",
-      "methods": [
-        {
-          "name": "value",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.JsonBoolean$Companion"
-    },
-    {
-      "type": "com.openai.core.JsonField"
-    },
-    {
-      "type": "com.openai.core.JsonField$Deserializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.JsonField$IsMissing",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.JsonField$Visitor"
-    },
-    {
-      "type": "com.openai.core.JsonMissing$Serializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.JsonNumber",
-      "methods": [
-        {
-          "name": "value",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.JsonObject",
-      "methods": [
-        {
-          "name": "values",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.JsonObject$Companion"
-    },
-    {
-      "type": "com.openai.core.JsonString",
-      "methods": [
-        {
-          "name": "value",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.JsonString$Companion"
-    },
-    {
-      "type": "com.openai.core.JsonValue"
-    },
-    {
-      "type": "com.openai.core.JsonValue$Deserializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.JsonValue$Visitor"
-    },
-    {
-      "type": "com.openai.core.KnownValue",
-      "fields": [
-        {
-          "name": "value"
-        }
-      ]
-    },
-    {
-      "type": "com.openai.core.KnownValue$Companion"
-    },
-    {
-      "type": "com.openai.core.Params"
-    },
-    {
-      "type": "com.openai.core.http.Headers"
-    },
-    {
-      "type": "com.openai.core.http.QueryParams"
-    },
-    {
-      "type": "com.openai.models.ChatModel",
-      "methods": [
-        {
-          "name": "_value",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.ChatModel$Companion"
-    },
-    {
-      "type": "com.openai.models.ChatModel$Known"
-    },
-    {
-      "type": "com.openai.models.ChatModel$Value"
-    },
-    {
-      "type": "com.openai.models.FunctionDefinition",
-      "methods": [
-        {
-          "name": "_additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "_description",
-          "parameterTypes": []
-        },
-        {
-          "name": "_name",
-          "parameterTypes": []
-        },
-        {
-          "name": "_parameters",
-          "parameterTypes": []
-        },
-        {
-          "name": "_strict",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.FunctionDefinition$Builder"
-    },
-    {
-      "type": "com.openai.models.FunctionDefinition$Companion"
-    },
-    {
-      "type": "com.openai.models.FunctionParameters",
-      "fields": [
-        {
-          "name": "additionalProperties"
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.FunctionParameters$Builder"
-    },
-    {
-      "type": "com.openai.models.FunctionParameters$Companion"
-    },
-    {
-      "type": "com.openai.models.ReasoningEffort"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonValue",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "int",
-            "kotlin.jvm.internal.DefaultConstructorMarker"
-          ]
-        },
-        {
-          "name": "putAdditionalProperty",
-          "parameterTypes": [
-            "java.lang.String",
-            "com.openai.core.JsonValue"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Choice",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField"
-          ]
-        },
-        {
-          "name": "putAdditionalProperty",
-          "parameterTypes": [
-            "java.lang.String",
-            "com.openai.core.JsonValue"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$FinishReason",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$FinishReason$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$FinishReason$Known"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$FinishReason$Value"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Choice$Logprobs"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$Moderation"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$ServiceTier",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$ServiceTier$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$ServiceTier$Known"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletion$ServiceTier$Value"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionAssistantMessageParam",
-      "methods": [
-        {
-          "name": "_additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "_audio",
-          "parameterTypes": []
-        },
-        {
-          "name": "_content",
-          "parameterTypes": []
-        },
-        {
-          "name": "_functionCall",
-          "parameterTypes": []
-        },
-        {
-          "name": "_name",
-          "parameterTypes": []
-        },
-        {
-          "name": "_refusal",
-          "parameterTypes": []
-        },
-        {
-          "name": "_role",
-          "parameterTypes": []
-        },
-        {
-          "name": "_toolCalls",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionAssistantMessageParam$Audio"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionAssistantMessageParam$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionAssistantMessageParam$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionAssistantMessageParam$Content"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionAssistantMessageParam$Content$Serializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionAssistantMessageParam$FunctionCall"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionAudio"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionAudioParam"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams",
-      "methods": [
-        {
-          "name": "model",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Body",
-      "methods": [
-        {
-          "name": "_additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "_audio",
-          "parameterTypes": []
-        },
-        {
-          "name": "_frequencyPenalty",
-          "parameterTypes": []
-        },
-        {
-          "name": "_functionCall",
-          "parameterTypes": []
-        },
-        {
-          "name": "_functions",
-          "parameterTypes": []
-        },
-        {
-          "name": "_logitBias",
-          "parameterTypes": []
-        },
-        {
-          "name": "_logprobs",
-          "parameterTypes": []
-        },
-        {
-          "name": "_maxCompletionTokens",
-          "parameterTypes": []
-        },
-        {
-          "name": "_maxTokens",
-          "parameterTypes": []
-        },
-        {
-          "name": "_messages",
-          "parameterTypes": []
-        },
-        {
-          "name": "_metadata",
-          "parameterTypes": []
-        },
-        {
-          "name": "_modalities",
-          "parameterTypes": []
-        },
-        {
-          "name": "_model",
-          "parameterTypes": []
-        },
-        {
-          "name": "_moderation",
-          "parameterTypes": []
-        },
-        {
-          "name": "_n",
-          "parameterTypes": []
-        },
-        {
-          "name": "_parallelToolCalls",
-          "parameterTypes": []
-        },
-        {
-          "name": "_prediction",
-          "parameterTypes": []
-        },
-        {
-          "name": "_presencePenalty",
-          "parameterTypes": []
-        },
-        {
-          "name": "_promptCacheKey",
-          "parameterTypes": []
-        },
-        {
-          "name": "_promptCacheRetention",
-          "parameterTypes": []
-        },
-        {
-          "name": "_reasoningEffort",
-          "parameterTypes": []
-        },
-        {
-          "name": "_responseFormat",
-          "parameterTypes": []
-        },
-        {
-          "name": "_safetyIdentifier",
-          "parameterTypes": []
-        },
-        {
-          "name": "_seed",
-          "parameterTypes": []
-        },
-        {
-          "name": "_serviceTier",
-          "parameterTypes": []
-        },
-        {
-          "name": "_stop",
-          "parameterTypes": []
-        },
-        {
-          "name": "_store",
-          "parameterTypes": []
-        },
-        {
-          "name": "_streamOptions",
-          "parameterTypes": []
-        },
-        {
-          "name": "_temperature",
-          "parameterTypes": []
-        },
-        {
-          "name": "_toolChoice",
-          "parameterTypes": []
-        },
-        {
-          "name": "_tools",
-          "parameterTypes": []
-        },
-        {
-          "name": "_topLogprobs",
-          "parameterTypes": []
-        },
-        {
-          "name": "_topP",
-          "parameterTypes": []
-        },
-        {
-          "name": "_user",
-          "parameterTypes": []
-        },
-        {
-          "name": "_verbosity",
-          "parameterTypes": []
-        },
-        {
-          "name": "_webSearchOptions",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Body$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Body$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Function"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$FunctionCall"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$LogitBias"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Metadata"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Modality"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Moderation"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$PromptCacheRetention"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$ResponseFormat"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$ServiceTier"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Stop"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$Verbosity"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionCreateParams$WebSearchOptions"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionFunctionTool",
-      "methods": [
-        {
-          "name": "_additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "_function",
-          "parameterTypes": []
-        },
-        {
-          "name": "_type",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionFunctionTool$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionFunctionTool$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessage",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonValue",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "int",
-            "kotlin.jvm.internal.DefaultConstructorMarker"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Annotation"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Annotation$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Annotation$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Annotation$UrlCitation"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessage$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessage$FunctionCall"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonValue"
-          ]
-        },
-        {
-          "name": "_additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "_function",
-          "parameterTypes": []
-        },
-        {
-          "name": "_id",
-          "parameterTypes": []
-        },
-        {
-          "name": "_type",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Function",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField"
-          ]
-        },
-        {
-          "name": "_additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "_arguments",
-          "parameterTypes": []
-        },
-        {
-          "name": "_name",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Function$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageFunctionToolCall$Function$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageParam"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageParam$Serializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageToolCall"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageToolCall$Deserializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionMessageToolCall$Serializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionPredictionContent"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionStreamOptions"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionTool"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionTool$Serializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionToolChoiceOption"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam",
-      "methods": [
-        {
-          "name": "_additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "_content",
-          "parameterTypes": []
-        },
-        {
-          "name": "_role",
-          "parameterTypes": []
-        },
-        {
-          "name": "_toolCallId",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam$Content"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionToolMessageParam$Content$Serializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionUserMessageParam",
-      "methods": [
-        {
-          "name": "_additionalProperties",
-          "parameterTypes": []
-        },
-        {
-          "name": "_content",
-          "parameterTypes": []
-        },
-        {
-          "name": "_name",
-          "parameterTypes": []
-        },
-        {
-          "name": "_role",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionUserMessageParam$Builder"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionUserMessageParam$Companion"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionUserMessageParam$Content"
-    },
-    {
-      "type": "com.openai.models.chat.completions.ChatCompletionUserMessageParam$Content$Serializer",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.completions.CompletionUsage",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField"
-          ]
-        },
-        {
-          "name": "putAdditionalProperty",
-          "parameterTypes": [
-            "java.lang.String",
-            "com.openai.core.JsonValue"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.completions.CompletionUsage$Builder"
-    },
-    {
-      "type": "com.openai.models.completions.CompletionUsage$Companion"
-    },
-    {
-      "type": "com.openai.models.completions.CompletionUsage$CompletionTokensDetails",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.completions.CompletionUsage$CompletionTokensDetails$Builder"
-    },
-    {
-      "type": "com.openai.models.completions.CompletionUsage$CompletionTokensDetails$Companion"
-    },
-    {
-      "type": "com.openai.models.completions.CompletionUsage$PromptTokensDetails",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "com.openai.core.JsonField",
-            "com.openai.core.JsonField"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.openai.models.completions.CompletionUsage$PromptTokensDetails$Builder"
-    },
-    {
-      "type": "com.openai.models.completions.CompletionUsage$PromptTokensDetails$Companion"
     },
     {
       "type": "com.rometools.rome.feed.WireFeed"
@@ -1045,45 +142,7 @@
       ]
     },
     {
-      "type": "com.sun.crypto.provider.DHParameters",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "com.sun.crypto.provider.GaloisCounterMode$AESGCM",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.HKDFKeyDerivation$HKDFSHA384",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "javax.crypto.KDFParameters"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.HmacCore$HmacSHA384",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "com.sun.crypto.provider.TlsMasterSecretGenerator",
       "methods": [
         {
           "name": "<init>",
@@ -1123,27 +182,13 @@
         {
           "name": "codeReviewClient",
           "parameterTypes": [
-            "org.springframework.ai.chat.model.ChatModel",
-            "org.springaicommunity.agent.tools.GrepTool",
-            "org.springaicommunity.agent.tools.FileSystemTools",
-            "org.springaicommunity.agent.tools.ShellTools",
-            "dev.mvlcak.aster.ai.tool.DiffTool"
+            "org.springframework.ai.chat.model.ChatModel"
           ]
         },
         {
           "name": "messageChatMemoryAdvisor",
           "parameterTypes": [
             "org.springframework.ai.chat.memory.ChatMemory"
-          ]
-        },
-        {
-          "name": "streamingChatService",
-          "parameterTypes": [
-            "org.springframework.ai.chat.client.ChatClient",
-            "dev.mvlcak.aster.tui.AppState",
-            "dev.mvlcak.aster.event.AppEventBus",
-            "dev.mvlcak.aster.ai.routing.RoutingWorkflow",
-            "dev.mvlcak.aster.ai.workflow.DevelopmentWorkflow"
           ]
         }
       ]
@@ -1273,7 +318,8 @@
           "parameterTypes": [
             "dev.mvlcak.aster.ai.workflow.DevelopmentWorkflow",
             "dev.mvlcak.aster.ai.workflow.AnswerWorkflow",
-            "org.springframework.ai.chat.model.ChatModel"
+            "org.springframework.ai.chat.model.ChatModel",
+            "dev.mvlcak.aster.tui.AppState"
           ]
         }
       ]
@@ -1293,7 +339,9 @@
         {
           "name": "<init>",
           "parameterTypes": [
-            "org.springframework.ai.chat.client.ChatClient"
+            "org.springframework.ai.chat.client.ChatClient",
+            "dev.mvlcak.aster.event.AppEventBus",
+            "dev.mvlcak.aster.tui.AppState"
           ]
         }
       ]
@@ -1321,7 +369,8 @@
             "org.springaicommunity.agent.tools.GrepTool",
             "org.springaicommunity.agent.tools.ShellTools",
             "dev.mvlcak.aster.ai.workflow.CodingEvaluatorOptimizerWorkflow",
-            "dev.mvlcak.aster.tui.AppState"
+            "dev.mvlcak.aster.tui.AppState",
+            "dev.mvlcak.aster.event.AppEventBus"
           ]
         }
       ]
@@ -1330,7 +379,15 @@
       "type": "dev.mvlcak.aster.ai.workflow.EvaluatorOptimizerWorkflow"
     },
     {
-      "type": "dev.mvlcak.aster.chat.StreamingChatService"
+      "type": "dev.mvlcak.aster.chat.ChatService",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "dev.mvlcak.aster.ai.routing.RoutingWorkflow"
+          ]
+        }
+      ]
     },
     {
       "type": "dev.mvlcak.aster.event.AppEventBus"
@@ -1419,7 +476,7 @@
           "parameterTypes": [
             "dev.mvlcak.aster.event.AppEventBus",
             "dev.mvlcak.aster.tui.AppState",
-            "dev.mvlcak.aster.chat.StreamingChatService"
+            "dev.mvlcak.aster.chat.ChatService"
           ]
         },
         {
@@ -1622,17 +679,7 @@
       "type": "java.lang.CharSequence[]"
     },
     {
-      "type": "java.lang.Class",
-      "methods": [
-        {
-          "name": "isRecord",
-          "parameterTypes": []
-        },
-        {
-          "name": "isSealed",
-          "parameterTypes": []
-        }
-      ]
+      "type": "java.lang.Class"
     },
     {
       "type": "java.lang.ClassLoader",
@@ -1655,16 +702,10 @@
       "type": "java.lang.Comparable[]"
     },
     {
-      "type": "java.lang.Double"
-    },
-    {
       "type": "java.lang.Enum"
     },
     {
       "type": "java.lang.Integer"
-    },
-    {
-      "type": "java.lang.Iterable"
     },
     {
       "type": "java.lang.Long"
@@ -1778,55 +819,10 @@
       "type": "java.security.KeyStoreSpi"
     },
     {
-      "type": "java.security.interfaces.ECPrivateKey"
-    },
-    {
-      "type": "java.security.interfaces.ECPublicKey"
-    },
-    {
-      "type": "java.security.interfaces.RSAPrivateKey"
-    },
-    {
-      "type": "java.security.interfaces.RSAPublicKey"
-    },
-    {
       "type": "java.sql.Date"
     },
     {
       "type": "java.sql.Timestamp"
-    },
-    {
-      "type": "java.util.AbstractMap"
-    },
-    {
-      "type": "java.util.Collection"
-    },
-    {
-      "type": "java.util.Collections$EmptyMap"
-    },
-    {
-      "type": "java.util.Collections$UnmodifiableCollection"
-    },
-    {
-      "type": "java.util.Collections$UnmodifiableList"
-    },
-    {
-      "type": "java.util.Collections$UnmodifiableMap"
-    },
-    {
-      "type": "java.util.Collections$UnmodifiableRandomAccessList"
-    },
-    {
-      "type": "java.util.List"
-    },
-    {
-      "type": "java.util.Map"
-    },
-    {
-      "type": "java.util.Optional"
-    },
-    {
-      "type": "java.util.RandomAccess"
     },
     {
       "type": "java.util.concurrent.Executor"
@@ -1856,77 +852,10 @@
       "type": "jdk.internal.misc.Unsafe"
     },
     {
-      "type": "kotlin.Any"
-    },
-    {
-      "type": "kotlin.Boolean"
-    },
-    {
-      "type": "kotlin.Cloneable"
-    },
-    {
-      "type": "kotlin.Double"
-    },
-    {
-      "type": "kotlin.Function1"
-    },
-    {
-      "type": "kotlin.Int"
-    },
-    {
-      "type": "kotlin.Long"
-    },
-    {
-      "type": "kotlin.Metadata",
-      "methods": [
-        {
-          "name": "bv",
-          "parameterTypes": []
-        },
-        {
-          "name": "d1",
-          "parameterTypes": []
-        },
-        {
-          "name": "d2",
-          "parameterTypes": []
-        },
-        {
-          "name": "k",
-          "parameterTypes": []
-        },
-        {
-          "name": "mv",
-          "parameterTypes": []
-        },
-        {
-          "name": "pn",
-          "parameterTypes": []
-        },
-        {
-          "name": "xi",
-          "parameterTypes": []
-        },
-        {
-          "name": "xs",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "kotlin.Nothing"
-    },
-    {
-      "type": "kotlin.Number"
+      "type": "kotlin.Metadata"
     },
     {
       "type": "kotlin.SafePublicationLazyImpl"
-    },
-    {
-      "type": "kotlin.String"
-    },
-    {
-      "type": "kotlin.Unit"
     },
     {
       "type": "kotlin.annotation.MustBeDocumented"
@@ -1936,15 +865,6 @@
     },
     {
       "type": "kotlin.annotation.Target"
-    },
-    {
-      "type": "kotlin.collections.List"
-    },
-    {
-      "type": "kotlin.collections.Map"
-    },
-    {
-      "type": "kotlin.collections.MutableMap"
     },
     {
       "type": "kotlin.coroutines.Continuation"
@@ -1964,56 +884,6 @@
         {
           "name": "<init>",
           "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "kotlin.reflect.jvm.internal.impl.km.jvm.internal.JvmMetadataExtensions"
-    },
-    {
-      "type": "kotlin.reflect.jvm.internal.impl.load.java.ErasedOverridabilityCondition"
-    },
-    {
-      "type": "kotlin.reflect.jvm.internal.impl.load.java.FieldOverridabilityCondition"
-    },
-    {
-      "type": "kotlin.reflect.jvm.internal.impl.load.java.JavaIncompatibilityRulesOverridabilityCondition"
-    },
-    {
-      "type": "kotlin.reflect.jvm.internal.impl.resolve.scopes.DescriptorKindFilter",
-      "fields": [
-        {
-          "name": "ALL"
-        },
-        {
-          "name": "CALLABLES"
-        },
-        {
-          "name": "CLASSIFIERS"
-        },
-        {
-          "name": "Companion"
-        },
-        {
-          "name": "FUNCTIONS"
-        },
-        {
-          "name": "NON_SINGLETON_CLASSIFIERS"
-        },
-        {
-          "name": "PACKAGES"
-        },
-        {
-          "name": "SINGLETON_CLASSIFIERS"
-        },
-        {
-          "name": "TYPE_ALIASES"
-        },
-        {
-          "name": "VALUES"
-        },
-        {
-          "name": "VARIABLES"
         }
       ]
     },
@@ -2216,44 +1086,13 @@
       "type": "org.springaicommunity.agent.tools.FileSystemTools"
     },
     {
-      "type": "org.springaicommunity.agent.tools.GrepTool",
-      "methods": [
-        {
-          "name": "grep",
-          "parameterTypes": [
-            "java.lang.String",
-            "java.lang.String",
-            "java.lang.String",
-            "org.springaicommunity.agent.tools.GrepTool$OutputMode",
-            "java.lang.Integer",
-            "java.lang.Integer",
-            "java.lang.Integer",
-            "java.lang.Boolean",
-            "java.lang.Boolean",
-            "java.lang.String",
-            "java.lang.Integer",
-            "java.lang.Integer",
-            "java.lang.Boolean"
-          ]
-        }
-      ]
+      "type": "org.springaicommunity.agent.tools.GrepTool"
     },
     {
       "type": "org.springaicommunity.agent.tools.GrepTool$OutputMode"
     },
     {
-      "type": "org.springaicommunity.agent.tools.ShellTools",
-      "methods": [
-        {
-          "name": "bash",
-          "parameterTypes": [
-            "java.lang.String",
-            "java.lang.Long",
-            "java.lang.String",
-            "java.lang.Boolean"
-          ]
-        }
-      ]
+      "type": "org.springaicommunity.agent.tools.ShellTools"
     },
     {
       "type": "org.springframework.ai.audio.transcription.TranscriptionModel"
@@ -2800,9 +1639,6 @@
           "parameterTypes": []
         }
       ]
-    },
-    {
-      "type": "org.springframework.beans.factory.annotation.Qualifier"
     },
     {
       "type": "org.springframework.beans.factory.aot.BeanFactoryInitializationAotProcessor"
@@ -4679,6 +3515,9 @@
       "type": "org.springframework.stereotype.Indexed"
     },
     {
+      "type": "org.springframework.stereotype.Service"
+    },
+    {
       "type": "org.springframework.util.ConcurrentReferenceHashMap$Segment[]"
     },
     {
@@ -4808,24 +3647,6 @@
       ]
     },
     {
-      "type": "sun.security.provider.DSA$SHA224withDSA",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.provider.DSA$SHA256withDSA",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "sun.security.provider.NativePRNG",
       "methods": [
         {
@@ -4846,42 +3667,6 @@
       ]
     },
     {
-      "type": "sun.security.provider.SHA2$SHA224",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.provider.SHA2$SHA256",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.provider.SHA5$SHA384",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.provider.SHA5$SHA512",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "sun.security.provider.X509Factory",
       "methods": [
         {
@@ -4891,52 +3676,7 @@
       ]
     },
     {
-      "type": "sun.security.provider.certpath.PKIXCertPathValidator",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.rsa.PSSParameters",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "sun.security.rsa.RSAKeyFactory$Legacy",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.rsa.RSAPSSSignature",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.rsa.RSASignature$SHA224withRSA",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
-      "type": "sun.security.rsa.RSASignature$SHA384withRSA",
       "methods": [
         {
           "name": "<init>",
@@ -5059,31 +3799,7 @@
       ]
     },
     {
-      "type": "sun.security.x509.OCSPNoCheckExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "java.lang.Boolean",
-            "java.lang.Object"
-          ]
-        }
-      ]
-    },
-    {
       "type": "sun.security.x509.PrivateKeyUsageExtension",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "java.lang.Boolean",
-            "java.lang.Object"
-          ]
-        }
-      ]
-    },
-    {
-      "type": "sun.security.x509.SubjectAlternativeNameExtension",
       "methods": [
         {
           "name": "<init>",
@@ -5294,9 +4010,6 @@
       "glob": "META-INF/services/io.micrometer.context.ThreadLocalAccessor"
     },
     {
-      "glob": "META-INF/services/java.net.spi.InetAddressResolverProvider"
-    },
-    {
       "glob": "META-INF/services/java.net.spi.URLStreamHandlerProvider"
     },
     {
@@ -5304,15 +4017,6 @@
     },
     {
       "glob": "META-INF/services/java.time.zone.ZoneRulesProvider"
-    },
-    {
-      "glob": "META-INF/services/kotlin.reflect.jvm.internal.impl.km.internal.extensions.MetadataExtensions"
-    },
-    {
-      "glob": "META-INF/services/kotlin.reflect.jvm.internal.impl.resolve.ExternalOverridabilityCondition"
-    },
-    {
-      "glob": "META-INF/services/kotlin.reflect.jvm.internal.impl.util.ModuleVisibilityHelper"
     },
     {
       "glob": "META-INF/services/org.apache.commons.logging.LogFactory"
@@ -5426,6 +4130,9 @@
       "glob": "dev/mvlcak/aster/ai/config/ToolConfig.class"
     },
     {
+      "glob": "dev/mvlcak/aster/ai/routing/RoutingWorkflow$Route.class"
+    },
+    {
       "glob": "dev/mvlcak/aster/ai/routing/RoutingWorkflow$RouteDecision.class"
     },
     {
@@ -5441,10 +4148,19 @@
       "glob": "dev/mvlcak/aster/ai/workflow/CodingEvaluatorOptimizerWorkflow.class"
     },
     {
+      "glob": "dev/mvlcak/aster/ai/workflow/DevelopmentWorkflow$DevelopmentSummary.class"
+    },
+    {
+      "glob": "dev/mvlcak/aster/ai/workflow/DevelopmentWorkflow$PlanSummary.class"
+    },
+    {
       "glob": "dev/mvlcak/aster/ai/workflow/DevelopmentWorkflow.class"
     },
     {
       "glob": "dev/mvlcak/aster/ai/workflow/EvaluatorOptimizerWorkflow.class"
+    },
+    {
+      "glob": "dev/mvlcak/aster/chat/ChatService.class"
     },
     {
       "glob": "dev/mvlcak/aster/tui/config/AppConfig.class"
@@ -5924,14 +4640,6 @@
     {
       "module": "java.base",
       "glob": "jdk/internal/icu/impl/data/icudt76b/nfkc.nrm"
-    },
-    {
-      "module": "java.base",
-      "glob": "jdk/internal/icu/impl/data/icudt76b/uprops.icu"
-    },
-    {
-      "module": "java.base",
-      "glob": "sun/net/idn/uidna.spp"
     },
     {
       "module": "jdk.jfr",

@@ -66,7 +66,7 @@ public class ChatPane implements Element {
                                 .fg(Color.CYAN),
                         row(
                                 text(appState.isStreaming()
-                                        ? "  " + SPINNER[(int) ((System.currentTimeMillis() / 100) % SPINNER.length)] + " thinking…"
+                                        ? "  " + SPINNER[(int) ((System.currentTimeMillis() / 100) % SPINNER.length)] + " " + statusLabel()
                                         : "")
                                         .bold()
                                         .fg(Color.YELLOW), text( appState.isStreaming() ? " " + appState.thinkingElapsedSeconds() +" s": "")
@@ -80,6 +80,11 @@ public class ChatPane implements Element {
                         row(text("─".repeat(500)).fg(Color.WHITE)).length(1)
         ).fill();
         chatPanel.render(frame, area, context);
+    }
+
+    private String statusLabel() {
+        String status = appState.currentActivityStatus();
+        return status == null || status.isBlank() ? "thinking…" : status;
     }
 
     @Override
@@ -157,9 +162,8 @@ public class ChatPane implements Element {
 
             case HELP -> appState.switchScreen(ScreenMode.HELP);
             case USAGE -> appState.switchScreen(ScreenMode.USAGE);
-            case CLEAR -> {
-                bus.dispatch(new AppEvent.SystemMessage("Cleared the current session history."));
-            }
+            case CLEAR -> bus.dispatch(new AppEvent.SystemMessage("Cleared the current session history."));
+
         }
     }
 
@@ -173,7 +177,8 @@ public class ChatPane implements Element {
                 case ASSISTANT -> "[bold][green]Aster[/green][/bold]";
                 case SYSTEM -> "[bold][yellow]System[/yellow][/bold]";
             };
-            out.append(roleLabel).append(":\n").append(MarkdownToMarkup.convert(entry.text()));
+            String body = MarkdownToMarkup.convert(entry.text());
+            out.append(roleLabel).append(":\n").append(body);
         }
         String[] rawLines = out.toString().split("\n", -1);
         List<String> wrapped = new ArrayList<>();
