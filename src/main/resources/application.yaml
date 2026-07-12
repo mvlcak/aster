@@ -10,10 +10,12 @@ spring:
       chat:
         model: ${AZURE_OPENAI_DEPLOYMENT_NAME}
 logging:
+  console:
+    enabled: ${LOG_CONSOLE:false}
   file:
-    name: .aster/aster.log
+    name: ${LOG_FILE:.aster/aster.log}
   level:
-    dev.mvlcak.aster: INFO
+    dev.mvlcak.aster: ${LOG_LEVEL:INFO}
 aster:
   tui:
     app-name: Aster

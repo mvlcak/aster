@@ -2,7 +2,7 @@ package dev.mvlcak.aster.event;
 
 public sealed interface AppEvent permits
         AppEvent.UserInput, AppEvent.AssistantFail,
-        AppEvent.SystemMessage,
+        AppEvent.ClearSession,
         AppEvent.AssistantCompleteText, AppEvent.AssistantDelta,
         AppEvent.AssistantStatus, AppEvent.AssistantSummary {
 
@@ -20,5 +20,7 @@ public sealed interface AppEvent permits
     record AssistantSummary(String text) implements AppEvent {
     }
     record AssistantFail(String error) implements AppEvent {}
-    record SystemMessage(String text) implements AppEvent {}
+
+    record ClearSession() implements AppEvent {
+    }
 }

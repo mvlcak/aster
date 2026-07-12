@@ -77,6 +77,7 @@ public class TuiApp extends ToolkitApp {
     private Element renderHelpScreen() {
         String helpText = """
                 /clear Clear the current session transcript and workflow
+                /usage Show usage of tokens
                 /help  Show this help screen
 
                 Esc, q, or Enter returns to chat.

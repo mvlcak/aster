@@ -162,7 +162,7 @@ public class ChatPane implements Element {
 
             case HELP -> appState.switchScreen(ScreenMode.HELP);
             case USAGE -> appState.switchScreen(ScreenMode.USAGE);
-            case CLEAR -> bus.dispatch(new AppEvent.SystemMessage("Cleared the current session history."));
+            case CLEAR -> bus.dispatch(new AppEvent.ClearSession());
 
         }
     }

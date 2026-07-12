@@ -4,6 +4,7 @@ import dev.mvlcak.aster.event.AppEvent;
 import dev.mvlcak.aster.event.AppEventBus;
 import dev.mvlcak.aster.tui.AppState;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,7 +22,7 @@ public class AnswerWorkflow implements AgentWorkflow {
 
     @Override
     public void runWorkflow(String userInput) {
-        ChatClient.CallResponseSpec callResponseSpec = chatClient.prompt(userInput).call();
+        ChatClient.CallResponseSpec callResponseSpec = chatClient.prompt(userInput).advisors(spec -> spec.param(ChatMemory.CONVERSATION_ID, 1)).call();
         appState.countTokens(callResponseSpec.chatResponse());
         appEventBus.dispatch(new AppEvent.AssistantCompleteText(callResponseSpec.content()));
     }

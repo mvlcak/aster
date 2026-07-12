@@ -24,6 +24,10 @@ public class AppState {
     private long lastCompletionTokens;
     private long totalCompletionTokens;
 
+    public synchronized void clearSession() {
+        this.messages.clear();
+    }
+
     public synchronized long getLastInputTokens() {
         return lastInputTokens;
     }

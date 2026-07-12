@@ -646,15 +646,6 @@
       "type": "java.io.Closeable"
     },
     {
-      "type": "java.io.Console",
-      "methods": [
-        {
-          "name": "isTerminal",
-          "parameterTypes": []
-        }
-      ]
-    },
-    {
       "type": "java.io.Serializable"
     },
     {

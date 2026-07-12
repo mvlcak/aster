@@ -47,7 +47,7 @@ public class AppEventLoop {
             case AppEvent.AssistantStatus(String text) -> appState.setActivityStatus(text);
             case AppEvent.AssistantSummary(String text) -> appState.completeAssistantSummary(text);
             case AppEvent.AssistantFail(String error) -> appState.abortAssistantResponse(error);
-            case AppEvent.SystemMessage(String text) -> appState.appendSystemMessage(text);
+            case AppEvent.ClearSession() -> appState.clearSession();
         }
     }
 }

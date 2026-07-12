@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>4.1.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>dev.mvlcak</groupId>
 	<artifactId>aster</artifactId>
@@ -79,8 +79,23 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<!-- JLine loads a native library; without this the JVM prints JEP 472 warnings. -->
+							<Enable-Native-Access>ALL-UNNAMED</Enable-Native-Access>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<jvmArguments>--enable-native-access=ALL-UNNAMED</jvmArguments>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -128,7 +143,10 @@
 						<artifactId>native-maven-plugin</artifactId>
 						<configuration>
 							<buildArgs>
-								<buildArg>--initialize-at-build-time=org.slf4j,ch.qos.logback,com.fasterxml.jackson</buildArg>
+								<buildArg>
+									--initialize-at-build-time=org.slf4j,ch.qos.logback,com.fasterxml.jackson,kotlin.enums.EnumEntriesList,kotlin.collections.AbstractList$Companion,kotlin.SynchronizedLazyImpl,com.fasterxml.jackson.module.kotlin.InternalCommonsKt$ANY_TO_INT_METHOD_TYPE$2,kotlin.UNINITIALIZED_VALUE
+								</buildArg>
+								<buildArg>--enable-native-access=ALL-UNNAMED</buildArg>
 							</buildArgs>
 						</configuration>
 					</plugin>
