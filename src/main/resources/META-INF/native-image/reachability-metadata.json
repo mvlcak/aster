@@ -250,14 +250,22 @@
         },
         {
           "name": "fileSystemTools",
-          "parameterTypes": []
+          "parameterTypes": [
+            "java.nio.file.Path"
+          ]
         },
         {
           "name": "grepTool",
-          "parameterTypes": []
+          "parameterTypes": [
+            "java.nio.file.Path"
+          ]
         },
         {
           "name": "shellTools",
+          "parameterTypes": []
+        },
+        {
+          "name": "workspaceDirectory",
           "parameterTypes": []
         }
       ]
@@ -699,6 +707,9 @@
       "type": "java.lang.Integer"
     },
     {
+      "type": "java.lang.Iterable"
+    },
+    {
       "type": "java.lang.Long"
     },
     {
@@ -802,6 +813,12 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "java.nio.file.Path"
+    },
+    {
+      "type": "java.nio.file.Watchable"
     },
     {
       "type": "java.security.AlgorithmParametersSpi"
@@ -3618,6 +3635,9 @@
     },
     {
       "type": "sun.misc.SignalHandler"
+    },
+    {
+      "type": "sun.nio.fs.UnixPath"
     },
     {
       "type": "sun.security.pkcs12.PKCS12KeyStore",

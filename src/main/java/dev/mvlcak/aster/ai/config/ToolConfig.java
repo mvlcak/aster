@@ -9,6 +9,9 @@ import org.springaicommunity.agent.tools.ShellTools;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @Configuration
 public class ToolConfig {
 
@@ -16,13 +19,24 @@ public class ToolConfig {
     private static final Logger log = LoggerFactory.getLogger(ToolConfig.class);
 
     @Bean
-    public GrepTool grepTool() {
-        return GrepTool.builder().build();
+    public Path workspaceDirectory() {
+        Path workspace = Paths.get(System.getProperty("user.dir")).toAbsolutePath().normalize();
+        log.info("Workspace directory: {}", workspace);
+        return workspace;
     }
 
     @Bean
-    public FileSystemTools fileSystemTools() {
-        return FileSystemTools.builder().build();
+    public GrepTool grepTool(Path workspaceDirectory) {
+        return GrepTool.builder()
+                .workingDirectory(workspaceDirectory)
+                .build();
+    }
+
+    @Bean
+    public FileSystemTools fileSystemTools(Path workspaceDirectory) {
+        return FileSystemTools.builder()
+                .allowedDirectory(workspaceDirectory)
+                .build();
     }
 
     @Bean
