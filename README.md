@@ -1,17 +1,9 @@
 
 # Aster - AI coding agent
 
-<style>
-.image {
-  text-align: center;  
-}
-img {
-    width: 275px;
-}
-</style>
-<div class="image">
-  <img src="assets/aster-cli.png" alt="aster logo" title="aster Logo">
-</div>
+<p align="center">
+  <img src="assets/aster-cli.png" alt="aster logo" title="aster Logo" width="275">
+</p>
 
 ## Stack
 
