@@ -40,6 +40,9 @@
       ]
     },
     {
+      "type": "com.ethlo.time.ITU"
+    },
+    {
       "type": "com.fasterxml.jackson.annotation.JacksonAnnotation"
     },
     {
@@ -142,7 +145,25 @@
       ]
     },
     {
+      "type": "com.sun.crypto.provider.DHParameters",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "com.sun.crypto.provider.GaloisCounterMode$AESGCM",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "com.sun.crypto.provider.TlsMasterSecretGenerator",
       "methods": [
         {
           "name": "<init>",
@@ -176,14 +197,13 @@
             "org.springaicommunity.agent.tools.FileSystemTools",
             "org.springaicommunity.agent.tools.ShellTools",
             "org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor",
-            "dev.mvlcak.aster.ai.tool.DiffTool"
+            "dev.mvlcak.aster.ai.tool.DiffTool",
+            "org.springframework.beans.factory.ObjectProvider"
           ]
         },
         {
-          "name": "codeReviewClient",
-          "parameterTypes": [
-            "org.springframework.ai.chat.model.ChatModel"
-          ]
+          "name": "chatMemoryRepository",
+          "parameterTypes": []
         },
         {
           "name": "messageChatMemoryAdvisor",
@@ -355,17 +375,6 @@
       ]
     },
     {
-      "type": "dev.mvlcak.aster.ai.workflow.CodingEvaluatorOptimizerWorkflow",
-      "methods": [
-        {
-          "name": "<init>",
-          "parameterTypes": [
-            "org.springframework.ai.chat.client.ChatClient"
-          ]
-        }
-      ]
-    },
-    {
       "type": "dev.mvlcak.aster.ai.workflow.DevelopmentWorkflow",
       "methods": [
         {
@@ -376,7 +385,6 @@
             "org.springaicommunity.agent.tools.FileSystemTools",
             "org.springaicommunity.agent.tools.GrepTool",
             "org.springaicommunity.agent.tools.ShellTools",
-            "dev.mvlcak.aster.ai.workflow.CodingEvaluatorOptimizerWorkflow",
             "dev.mvlcak.aster.tui.AppState",
             "dev.mvlcak.aster.event.AppEventBus"
           ]
@@ -384,15 +392,13 @@
       ]
     },
     {
-      "type": "dev.mvlcak.aster.ai.workflow.EvaluatorOptimizerWorkflow"
-    },
-    {
       "type": "dev.mvlcak.aster.chat.ChatService",
       "methods": [
         {
           "name": "<init>",
           "parameterTypes": [
-            "dev.mvlcak.aster.ai.routing.RoutingWorkflow"
+            "dev.mvlcak.aster.ai.routing.RoutingWorkflow",
+            "dev.mvlcak.aster.event.AppEventBus"
           ]
         }
       ]
@@ -402,6 +408,101 @@
     },
     {
       "type": "dev.mvlcak.aster.event.AppEventLoop"
+    },
+    {
+      "type": "dev.mvlcak.aster.mcp.McpClientSetting",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.String",
+            "java.lang.String",
+            "java.lang.String",
+            "dev.mvlcak.aster.mcp.ProtocolType"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dev.mvlcak.aster.mcp.McpSettings",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.util.List"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dev.mvlcak.aster.mcp.McpSettingsStore"
+    },
+    {
+      "type": "dev.mvlcak.aster.mcp.ProtocolType"
+    },
+    {
+      "type": "dev.mvlcak.aster.mcp.config.McpConfig",
+      "methods": [
+        {
+          "name": "asterMcpTransports",
+          "parameterTypes": [
+            "dev.mvlcak.aster.mcp.McpSettingsStore",
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        },
+        {
+          "name": "mcpSettingsStore",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "dev.mvlcak.aster.mcp.config.McpConfig$$SpringCGLIB$$0",
+      "fields": [
+        {
+          "name": "$$beanFactory"
+        },
+        {
+          "name": "CGLIB$CALLBACK_FILTER"
+        },
+        {
+          "name": "CGLIB$FACTORY_DATA"
+        }
+      ],
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "CGLIB$SET_STATIC_CALLBACKS",
+          "parameterTypes": [
+            "org.springframework.cglib.proxy.Callback[]"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dev.mvlcak.aster.mcp.config.McpConfig$$SpringCGLIB$$FastClass$$0",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Class"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "dev.mvlcak.aster.mcp.config.McpConfig$$SpringCGLIB$$FastClass$$1",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": [
+            "java.lang.Class"
+          ]
+        }
+      ]
     },
     {
       "type": "dev.mvlcak.aster.tui.AppState"
@@ -594,7 +695,16 @@
       "type": "int[]"
     },
     {
+      "type": "io.micrometer.context.ContextRegistry"
+    },
+    {
       "type": "io.micrometer.context.ContextSnapshot"
+    },
+    {
+      "type": "io.micrometer.context.ContextSnapshotFactory"
+    },
+    {
+      "type": "io.micrometer.context.ThreadLocalAccessor"
     },
     {
       "type": "io.micrometer.core.instrument.MeterRegistry"
@@ -607,6 +717,9 @@
     },
     {
       "type": "io.micrometer.tracing.Tracer"
+    },
+    {
+      "type": "io.modelcontextprotocol.json.schema.jackson3.JacksonJsonSchemaValidatorSupplier"
     },
     {
       "type": "jakarta.annotation.PostConstruct"
@@ -658,6 +771,9 @@
     },
     {
       "type": "java.io.Serializable[]"
+    },
+    {
+      "type": "java.lang.AutoCloseable"
     },
     {
       "type": "java.lang.Boolean",
@@ -831,6 +947,27 @@
     },
     {
       "type": "java.sql.Timestamp"
+    },
+    {
+      "type": "java.time.DurationEditor"
+    },
+    {
+      "type": "java.util.ArrayList"
+    },
+    {
+      "type": "java.util.Collection"
+    },
+    {
+      "type": "java.util.EventListener"
+    },
+    {
+      "type": "java.util.ImmutableCollections$ListN"
+    },
+    {
+      "type": "java.util.List"
+    },
+    {
+      "type": "java.util.SequencedCollection"
     },
     {
       "type": "java.util.concurrent.Executor"
@@ -1106,6 +1243,9 @@
       "type": "org.springframework.ai.audio.transcription.TranscriptionModel"
     },
     {
+      "type": "org.springframework.ai.audio.tts.StreamingTextToSpeechModel"
+    },
+    {
       "type": "org.springframework.ai.audio.tts.TextToSpeechModel"
     },
     {
@@ -1121,7 +1261,22 @@
       "type": "org.springframework.ai.chat.client.advisor.ToolCallingAdvisor$Builder"
     },
     {
+      "type": "org.springframework.ai.chat.client.advisor.api.Advisor"
+    },
+    {
+      "type": "org.springframework.ai.chat.client.advisor.api.BaseAdvisor"
+    },
+    {
       "type": "org.springframework.ai.chat.client.advisor.api.BaseChatMemoryAdvisor"
+    },
+    {
+      "type": "org.springframework.ai.chat.client.advisor.api.CallAdvisor"
+    },
+    {
+      "type": "org.springframework.ai.chat.client.advisor.api.MemoryAdvisor"
+    },
+    {
+      "type": "org.springframework.ai.chat.client.advisor.api.StreamAdvisor"
     },
     {
       "type": "org.springframework.ai.chat.memory.ChatMemory"
@@ -1139,6 +1294,9 @@
       "type": "org.springframework.ai.chat.model.ChatModel"
     },
     {
+      "type": "org.springframework.ai.chat.model.StreamingChatModel"
+    },
+    {
       "type": "org.springframework.ai.embedding.AbstractEmbeddingModel"
     },
     {
@@ -1146,6 +1304,262 @@
     },
     {
       "type": "org.springframework.ai.image.ImageModel"
+    },
+    {
+      "type": "org.springframework.ai.mcp.DefaultMcpToolNamePrefixGenerator"
+    },
+    {
+      "type": "org.springframework.ai.mcp.McpToolNamePrefixGenerator"
+    },
+    {
+      "type": "org.springframework.ai.mcp.SyncMcpToolCallbackProvider"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.McpLogging"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.spring.AbstractClientMcpHandlerRegistry"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.spring.ClientMcpSyncHandlersRegistry"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.spring.scan.AbstractAnnotatedMethodBeanFactoryInitializationAotProcessor"
+    },
+    {
+      "type": "org.springframework.ai.mcp.annotation.spring.scan.AnnotatedMethodDiscovery"
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.McpClientAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "makeSyncClientsClosable",
+          "parameterTypes": [
+            "java.util.List"
+          ]
+        },
+        {
+          "name": "mcpSyncClientConfigurer",
+          "parameterTypes": [
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        },
+        {
+          "name": "mcpSyncClients",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.client.common.autoconfigure.configurer.McpSyncClientConfigurer",
+            "org.springframework.ai.mcp.client.common.autoconfigure.properties.McpClientCommonProperties",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        },
+        {
+          "name": "mcpSyncToolChangeEventEmmiter",
+          "parameterTypes": [
+            "org.springframework.context.ApplicationEventPublisher"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.McpClientAutoConfiguration$CloseableMcpSyncClients"
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.McpSseClientConnectionDetails"
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.McpSyncToolsChangeEventEmmiter"
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.McpToolCallbackAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "defaultMcpToolNamePrefixGenerator",
+          "parameterTypes": []
+        },
+        {
+          "name": "mcpToolCallbacks",
+          "parameterTypes": [
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.McpToolCallbackAutoConfiguration$McpToolCallbackAutoConfigurationCondition",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.PropertiesMcpSseClientConnectionDetails"
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.StdioTransportAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "stdioTransports",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.client.common.autoconfigure.properties.McpStdioClientProperties"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.annotations.McpClientAnnotationScannerAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "clientAnnotatedBeanFactoryInitializationAotProcessor",
+          "parameterTypes": []
+        },
+        {
+          "name": "clientMcpSyncHandlersRegistry",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.annotations.McpClientAnnotationScannerAutoConfiguration$AnnotationHints"
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.annotations.McpClientAnnotationScannerAutoConfiguration$ClientAnnotatedBeanFactoryInitializationAotProcessor"
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.annotations.McpClientAnnotationScannerProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.configurer.McpSyncClientConfigurer"
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.properties.McpClientCommonProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "setInitialized",
+          "parameterTypes": [
+            "boolean"
+          ]
+        },
+        {
+          "name": "setName",
+          "parameterTypes": [
+            "java.lang.String"
+          ]
+        },
+        {
+          "name": "setRequestTimeout",
+          "parameterTypes": [
+            "java.time.Duration"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.properties.McpSseClientProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.properties.McpStdioClientProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.common.autoconfigure.properties.McpStreamableHttpClientProperties",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.httpclient.autoconfigure.SseHttpClientTransportAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "mcpSseClientConnectionDetails",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.client.common.autoconfigure.properties.McpSseClientProperties"
+          ]
+        },
+        {
+          "name": "sseHttpClientTransports",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.client.common.autoconfigure.McpSseClientConnectionDetails",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.client.httpclient.autoconfigure.StreamableHttpHttpClientTransportAutoConfiguration",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        },
+        {
+          "name": "streamableHttpHttpClientTransports",
+          "parameterTypes": [
+            "org.springframework.ai.mcp.client.common.autoconfigure.properties.McpStreamableHttpClientProperties",
+            "org.springframework.beans.factory.ObjectProvider",
+            "org.springframework.beans.factory.ObjectProvider"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.springframework.ai.mcp.customizer.McpClientCustomizer"
+    },
+    {
+      "type": "org.springframework.ai.model.Model"
+    },
+    {
+      "type": "org.springframework.ai.model.StreamingModel"
     },
     {
       "type": "org.springframework.ai.model.chat.client.autoconfigure.ChatClientAutoConfiguration",
@@ -1204,10 +1618,6 @@
           "parameterTypes": [
             "org.springframework.ai.chat.memory.ChatMemoryRepository"
           ]
-        },
-        {
-          "name": "chatMemoryRepository",
-          "parameterTypes": []
         }
       ]
     },
@@ -1551,6 +1961,9 @@
       "type": "org.springframework.ai.retry.RetryUtils"
     },
     {
+      "type": "org.springframework.ai.tool.ToolCallbackProvider"
+    },
+    {
       "type": "org.springframework.ai.tool.annotation.Tool"
     },
     {
@@ -1619,6 +2032,15 @@
       ]
     },
     {
+      "type": "org.springframework.aot.hint.annotation.Reflective"
+    },
+    {
+      "type": "org.springframework.aot.hint.annotation.RegisterReflection"
+    },
+    {
+      "type": "org.springframework.aot.hint.annotation.RegisterReflectionForBinding"
+    },
+    {
       "type": "org.springframework.beans.factory.Aware"
     },
     {
@@ -1640,6 +2062,9 @@
       "type": "org.springframework.beans.factory.InitializingBean"
     },
     {
+      "type": "org.springframework.beans.factory.SmartInitializingSingleton"
+    },
+    {
       "type": "org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor",
       "methods": [
         {
@@ -1647,6 +2072,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor"
     },
     {
       "type": "org.springframework.beans.factory.aot.BeanFactoryInitializationAotProcessor"
@@ -1661,13 +2089,25 @@
       "type": "org.springframework.beans.factory.config.BeanPostProcessor"
     },
     {
+      "type": "org.springframework.beans.factory.config.DestructionAwareBeanPostProcessor"
+    },
+    {
       "type": "org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor"
+    },
+    {
+      "type": "org.springframework.beans.factory.config.PlaceholderConfigurerSupport"
+    },
+    {
+      "type": "org.springframework.beans.factory.config.PropertyResourceConfigurer"
     },
     {
       "type": "org.springframework.beans.factory.config.SmartInstantiationAwareBeanPostProcessor"
     },
     {
       "type": "org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor"
+    },
+    {
+      "type": "org.springframework.beans.factory.support.MergedBeanDefinitionPostProcessor"
     },
     {
       "type": "org.springframework.boot.ApplicationProperties",
@@ -2034,6 +2474,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.boot.autoconfigure.service.connection.ConnectionDetails"
     },
     {
       "type": "org.springframework.boot.autoconfigure.ssl.FileWatcher"
@@ -2453,6 +2896,9 @@
     },
     {
       "type": "org.springframework.boot.context.properties.ConfigurationProperties"
+    },
+    {
+      "type": "org.springframework.boot.context.properties.ConfigurationPropertiesBinder"
     },
     {
       "type": "org.springframework.boot.context.properties.ConfigurationPropertiesBinder$ConfigurationPropertiesBinderFactory",
@@ -3111,6 +3557,9 @@
       "type": "org.springframework.boot.restclient.RestClientCustomizer"
     },
     {
+      "type": "org.springframework.boot.restclient.RestTemplateBuilder"
+    },
+    {
       "type": "org.springframework.boot.restclient.autoconfigure.AutoConfiguredRestClientSsl"
     },
     {
@@ -3181,6 +3630,9 @@
           "parameterTypes": []
         }
       ]
+    },
+    {
+      "type": "org.springframework.boot.restclient.autoconfigure.RestTemplateBuilderConfigurer"
     },
     {
       "type": "org.springframework.boot.ssl.DefaultSslBundleRegistry"
@@ -3340,7 +3792,13 @@
       "type": "org.springframework.context.EnvironmentAware"
     },
     {
+      "type": "org.springframework.context.Lifecycle"
+    },
+    {
       "type": "org.springframework.context.LifecycleProcessor"
+    },
+    {
+      "type": "org.springframework.context.Phased"
     },
     {
       "type": "org.springframework.context.ResourceLoaderAware"
@@ -3424,6 +3882,9 @@
       ]
     },
     {
+      "type": "org.springframework.context.event.EventListenerFactory"
+    },
+    {
       "type": "org.springframework.context.event.EventListenerMethodProcessor",
       "methods": [
         {
@@ -3454,7 +3915,16 @@
       "type": "org.springframework.core.annotation.Order"
     },
     {
+      "type": "org.springframework.core.io.support.PropertiesLoaderSupport"
+    },
+    {
       "type": "org.springframework.core.task.AsyncTaskExecutor"
+    },
+    {
+      "type": "org.springframework.core.task.TaskExecutor"
+    },
+    {
+      "type": "org.springframework.core.type.classreading.AbstractMetadataReaderFactory"
     },
     {
       "type": "org.springframework.core.type.classreading.CachingMetadataReaderFactory"
@@ -3562,7 +4032,13 @@
       "type": "reactor.core.publisher.Hooks"
     },
     {
+      "type": "reactor.core.publisher.LambdaMonoSubscriber"
+    },
+    {
       "type": "reactor.core.publisher.Mono"
+    },
+    {
+      "type": "reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain"
     },
     {
       "type": "reactor.core.scheduler.BoundedElasticScheduler"
@@ -3658,6 +4134,24 @@
       ]
     },
     {
+      "type": "sun.security.provider.DSA$SHA224withDSA",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.DSA$SHA256withDSA",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "sun.security.provider.NativePRNG",
       "methods": [
         {
@@ -3678,6 +4172,42 @@
       ]
     },
     {
+      "type": "sun.security.provider.SHA2$SHA224",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA2$SHA256",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA5$SHA384",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.provider.SHA5$SHA512",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "sun.security.provider.X509Factory",
       "methods": [
         {
@@ -3687,7 +4217,52 @@
       ]
     },
     {
+      "type": "sun.security.rsa.PSSParameters",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
       "type": "sun.security.rsa.RSAKeyFactory$Legacy",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.rsa.RSAPSSSignature",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.rsa.RSASignature$SHA224withRSA",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.ssl.KeyManagerFactoryImpl$SunX509",
+      "methods": [
+        {
+          "name": "<init>",
+          "parameterTypes": []
+        }
+      ]
+    },
+    {
+      "type": "sun.security.ssl.SSLContextImpl$DefaultSSLContext",
       "methods": [
         {
           "name": "<init>",
@@ -3920,6 +4495,15 @@
     {
       "type": {
         "proxy": [
+          "java.lang.reflect.TypeVariable",
+          "org.springframework.core.SerializableTypeWrapper$SerializableTypeProxy",
+          "java.io.Serializable"
+        ]
+      }
+    },
+    {
+      "type": {
+        "proxy": [
           "java.lang.reflect.WildcardType",
           "org.springframework.core.SerializableTypeWrapper$SerializableTypeProxy",
           "java.io.Serializable"
@@ -4021,7 +4605,13 @@
       "glob": "META-INF/services/io.micrometer.context.ThreadLocalAccessor"
     },
     {
+      "glob": "META-INF/services/io.modelcontextprotocol.json.schema.JsonSchemaValidatorSupplier"
+    },
+    {
       "glob": "META-INF/services/java.net.spi.URLStreamHandlerProvider"
+    },
+    {
+      "glob": "META-INF/services/java.nio.channels.spi.SelectorProvider"
     },
     {
       "glob": "META-INF/services/java.nio.charset.spi.CharsetProvider"
@@ -4156,9 +4746,6 @@
       "glob": "dev/mvlcak/aster/ai/workflow/AnswerWorkflow.class"
     },
     {
-      "glob": "dev/mvlcak/aster/ai/workflow/CodingEvaluatorOptimizerWorkflow.class"
-    },
-    {
       "glob": "dev/mvlcak/aster/ai/workflow/DevelopmentWorkflow$DevelopmentSummary.class"
     },
     {
@@ -4168,10 +4755,10 @@
       "glob": "dev/mvlcak/aster/ai/workflow/DevelopmentWorkflow.class"
     },
     {
-      "glob": "dev/mvlcak/aster/ai/workflow/EvaluatorOptimizerWorkflow.class"
+      "glob": "dev/mvlcak/aster/chat/ChatService.class"
     },
     {
-      "glob": "dev/mvlcak/aster/chat/ChatService.class"
+      "glob": "dev/mvlcak/aster/mcp/config/McpConfig.class"
     },
     {
       "glob": "dev/mvlcak/aster/tui/config/AppConfig.class"
@@ -4193,6 +4780,30 @@
     },
     {
       "glob": "dev/tamboui/tui/bindings/vscode.properties"
+    },
+    {
+      "glob": "draft/2020-12/meta/applicator"
+    },
+    {
+      "glob": "draft/2020-12/meta/content"
+    },
+    {
+      "glob": "draft/2020-12/meta/core"
+    },
+    {
+      "glob": "draft/2020-12/meta/format-annotation"
+    },
+    {
+      "glob": "draft/2020-12/meta/meta-data"
+    },
+    {
+      "glob": "draft/2020-12/meta/unevaluated"
+    },
+    {
+      "glob": "draft/2020-12/meta/validation"
+    },
+    {
+      "glob": "draft/2020-12/schema"
     },
     {
       "glob": "embedding/embedding-model-dimensions.properties"
@@ -4244,6 +4855,48 @@
     },
     {
       "glob": "org/jline/utils/xterm-256color.caps"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/McpClientAutoConfiguration$CloseableMcpAsyncClients.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/McpClientAutoConfiguration$CloseableMcpSyncClients.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/McpClientAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/McpToolCallbackAutoConfiguration$McpToolCallbackAutoConfigurationCondition$McpAutoConfigEnabled.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/McpToolCallbackAutoConfiguration$McpToolCallbackAutoConfigurationCondition$ToolCallbackProviderEnabled.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/McpToolCallbackAutoConfiguration$McpToolCallbackAutoConfigurationCondition.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/McpToolCallbackAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/StdioTransportAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/annotations/McpClientAnnotationScannerAutoConfiguration$AnnotationHints.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/annotations/McpClientAnnotationScannerAutoConfiguration$ClientAnnotatedBeanFactoryInitializationAotProcessor.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/annotations/McpClientAnnotationScannerAutoConfiguration$ClientMcpAnnotatedBeans.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/common/autoconfigure/annotations/McpClientAnnotationScannerAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/httpclient/autoconfigure/SseHttpClientTransportAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/ai/mcp/client/httpclient/autoconfigure/StreamableHttpHttpClientTransportAutoConfiguration.class"
     },
     {
       "glob": "org/springframework/ai/model/chat/client/autoconfigure/ChatClientAutoConfiguration$TracerNotPresentObservationConfiguration.class"
@@ -4298,6 +4951,15 @@
     },
     {
       "glob": "org/springframework/ai/model/tool/autoconfigure/ToolCallingAutoConfiguration.class"
+    },
+    {
+      "glob": "org/springframework/aot/hint/annotation/Reflective.class"
+    },
+    {
+      "glob": "org/springframework/aot/hint/annotation/RegisterReflection.class"
+    },
+    {
+      "glob": "org/springframework/aot/hint/annotation/RegisterReflectionForBinding.class"
     },
     {
       "glob": "org/springframework/boot/autoconfigure/AutoConfiguration.class"
@@ -4640,6 +5302,9 @@
     },
     {
       "glob": "org/springframework/context/annotation/ImportBeanDefinitionRegistrar.class"
+    },
+    {
+      "glob": "org/springframework/context/annotation/ImportRuntimeHints.class"
     },
     {
       "glob": "spring.properties"

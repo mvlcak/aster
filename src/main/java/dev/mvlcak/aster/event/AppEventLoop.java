@@ -2,8 +2,12 @@ package dev.mvlcak.aster.event;
 
 import dev.mvlcak.aster.chat.ChatService;
 import dev.mvlcak.aster.tui.AppState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AppEventLoop {
+
+    private static final Logger log = LoggerFactory.getLogger(AppEventLoop.class);
 
     private final AppEventBus bus;
     private final AppState appState;
@@ -26,6 +30,10 @@ public class AppEventLoop {
             } catch (InterruptedException _) {
                 Thread.currentThread().interrupt();
                 break;
+            } catch (RuntimeException e) {
+                // Letting this escape would kill the loop and freeze the TUI for good.
+                log.error("Failed to process event", e);
+                appState.abortAssistantResponse(AppEvent.AssistantFail.of(e).error());
             }
         }
     }

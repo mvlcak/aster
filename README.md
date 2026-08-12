@@ -1,6 +1,17 @@
 
 # Aster - AI coding agent
 
+<style>
+.image {
+  text-align: center;  
+}
+img {
+    width: 275px;
+}
+</style>
+<div class="image">
+  <img src="assets/aster-cli.png" alt="aster logo" title="aster Logo">
+</div>
 
 ## Stack
 
@@ -76,6 +87,35 @@ Run binary with:
 ``
 ./target/aster
 ``
+
+## MCP servers
+
+MCP servers are configured in `~/.aster/mcp.json` (override the directory with the `ASTER_HOME`
+environment variable). Manage them from the command line — these subcommands only touch the config file, they do not
+start the TUI:
+
+```bash
+aster mcp add --transport http dependency-upgrader http://localhost:8080/mcp
+aster mcp add --transport sse docs http://localhost:8080/sse
+aster mcp list
+aster mcp remove dependency-upgrader
+```
+
+`--transport` accepts `http` (streamable HTTP, the default) and `sse`. The URL is split into the server origin and its
+endpoint:
+
+```json
+{
+  "servers": [
+    {
+      "name": "dependency-upgrader",
+      "url": "http://localhost:8080",
+      "endpoint": "/mcp",
+      "protocolType": "STREAMABLE_HTTP"
+    }
+  ]
+}
+```
 
 
 

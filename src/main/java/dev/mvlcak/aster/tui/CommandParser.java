@@ -19,6 +19,7 @@ public class CommandParser {
         return switch (normalized) {
             case "/help" -> Optional.of(Command.HELP);
             case "/usage" -> Optional.of(Command.USAGE);
+            case "/mcp" -> Optional.of(Command.MCP);
             case "/clear" -> Optional.of(Command.CLEAR);
             default -> Optional.empty();
         };

@@ -24,17 +24,15 @@ public class DevelopmentWorkflow implements AgentWorkflow {
     private final FileSystemTools fileSystemTools;
     private final GrepTool grepTool;
     private final ShellTools shellTools;
-    private final CodingEvaluatorOptimizerWorkflow codingEvaluatorOptimizerWorkflow;
     private final AppState appState;
     private final AppEventBus appEventBus;
 
-    public DevelopmentWorkflow(ChatClient chatClient, ChatModel chatModel, FileSystemTools fileSystemTools, GrepTool grepTool, ShellTools shellTools, CodingEvaluatorOptimizerWorkflow codingEvaluatorOptimizerWorkflow, AppState appState, AppEventBus appEventBus) {
+    public DevelopmentWorkflow(ChatClient chatClient, ChatModel chatModel, FileSystemTools fileSystemTools, GrepTool grepTool, ShellTools shellTools, AppState appState, AppEventBus appEventBus) {
         this.chatClient = chatClient;
         this.chatModel = chatModel;
         this.fileSystemTools = fileSystemTools;
         this.grepTool = grepTool;
         this.shellTools = shellTools;
-        this.codingEvaluatorOptimizerWorkflow = codingEvaluatorOptimizerWorkflow;
         this.appState = appState;
         this.appEventBus = appEventBus;
     }
@@ -85,6 +83,10 @@ public class DevelopmentWorkflow implements AgentWorkflow {
         ResponseEntity<ChatResponse, DevelopmentSummary> result = chatClient.prompt(planResponse.entity().fileChanges()
                         .entrySet().stream().map(e -> "- **%s**: %s".formatted(e.getKey(), e.getValue())).collect(Collectors.joining("\n"))
                         + "\n Give 1 sentence summary to dedicated attribute")
+                .system("""
+                        Always give a summary in approximately 3 sentences what you did after prompt of client.
+                        Always after doing work(writing to files or creating files) use diff tool to show client what you have done.
+                        """)
                 .toolContext(Map.of(
                         "workingDirectory", appState.workingDirectory(),
                         "executionMode", "BUILD"))

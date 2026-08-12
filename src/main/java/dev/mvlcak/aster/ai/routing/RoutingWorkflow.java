@@ -16,12 +16,13 @@ public class RoutingWorkflow {
     public static final Map<String, String> ROUTING_OPTIONS = Map.of(
             Route.DEVELOPMENT.name(),
             """
-                        This path represents development or coding of software or any scripts in any programming languages
+                        This path represents writing and editing code or any scripts in any programming languages
                     """,
 
             Route.ANSWER.name(),
             """
-                        This path represents casual conversation between user and ai agent
+                        This path represents tasks not related to writing code, but it can be related to software
+                        or calling mcp server, or analyzing files in filesystem
                     """
     );
     private final AppState appState;

@@ -19,7 +19,24 @@ public sealed interface AppEvent permits
 
     record AssistantSummary(String text) implements AppEvent {
     }
-    record AssistantFail(String error) implements AppEvent {}
+
+    record AssistantFail(String error) implements AppEvent {
+
+        /**
+         * Renders the most specific cause of a failure as a single line for the transcript.
+         */
+        public static AssistantFail of(Throwable failure) {
+            Throwable root = failure;
+            while (root.getCause() != null && root.getCause() != root) {
+                root = root.getCause();
+            }
+            String message = root.getMessage();
+            String detail = message == null || message.isBlank()
+                    ? root.getClass().getSimpleName()
+                    : root.getClass().getSimpleName() + ": " + message.lines().findFirst().orElse("");
+            return new AssistantFail("Request failed — " + detail);
+        }
+    }
 
     record ClearSession() implements AppEvent {
     }

@@ -1,9 +1,12 @@
 package dev.mvlcak.aster.tui;
 
+import dev.mvlcak.aster.mcp.McpClientSetting;
+import dev.mvlcak.aster.mcp.McpSettingsStore;
 import dev.mvlcak.aster.tui.config.TuiProperties;
 import dev.tamboui.style.Color;
 import dev.tamboui.toolkit.app.ToolkitApp;
 import dev.tamboui.toolkit.element.Element;
+import dev.tamboui.toolkit.elements.ListElement;
 import dev.tamboui.toolkit.elements.Row;
 import dev.tamboui.toolkit.event.EventResult;
 import dev.tamboui.tui.TuiConfig;
@@ -11,7 +14,9 @@ import dev.tamboui.tui.event.KeyCode;
 import dev.tamboui.tui.event.KeyEvent;
 import org.jspecify.annotations.NonNull;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 
 import static dev.tamboui.toolkit.Toolkit.*;
 
@@ -20,6 +25,8 @@ public class TuiApp extends ToolkitApp {
     private final AppState state;
     private final TuiProperties tuiProperties;
     private final ChatPane chatPane;
+    // The list keeps its selection inside the element instance, so it must survive across renders.
+    private Element mcpList;
 
     public TuiApp(AppState state, TuiProperties tuiProperties, ChatPane chatPane) {
         this.state = state;
@@ -41,8 +48,34 @@ public class TuiApp extends ToolkitApp {
         return switch (state.currentScreen()) {
             case HELP -> renderHelpScreen();
             case CHAT -> renderChatScreen();
+            case MCP -> renderMcpScreen();
             case USAGE -> renderUsageScreen();
         };
+    }
+
+    private Element renderMcpScreen() {
+        List<McpClientSetting> mcpSettings;
+        try {
+            mcpSettings = new McpSettingsStore().load();
+        } catch (IOException e) {
+            throw new RuntimeException("Mcp client settings from ~/.aster/mcp.json not loaded", e);
+        }
+
+        if (mcpList == null) {
+            ListElement<?> list = list();
+            for (McpClientSetting setting : mcpSettings) {
+                list.add(row(text(setting.name()).bold().cyan(), spacer(2), text(setting.fullUrl()), spacer(2), text(setting.protocolType())));
+            }
+            mcpList = list
+                    .highlightColor(Color.CYAN)
+                    .title("MCP")
+                    .rounded()
+                    .fill()
+                    .id("root")
+                    .focusable()
+                    .onKeyEvent(this::handleRootEvent);
+        }
+        return mcpList;
     }
 
     private Element renderUsageScreen() {
@@ -94,7 +127,7 @@ public class TuiApp extends ToolkitApp {
             return EventResult.HANDLED;
         }
 
-        if (state.currentScreen() == ScreenMode.HELP || state.currentScreen() == ScreenMode.USAGE) {
+        if (state.currentScreen() == ScreenMode.HELP || state.currentScreen() == ScreenMode.USAGE || state.currentScreen() == ScreenMode.MCP) {
             if (event.isCancel() || event.isConfirm() || event.isCharIgnoreCase('q')) {
                 state.switchScreen(ScreenMode.CHAT);
                 return EventResult.HANDLED;
@@ -112,10 +145,6 @@ public class TuiApp extends ToolkitApp {
         }
 
         return chatPane.handleKeyEvent(event, true);
-    }
-
-    private Element renderDivider() {
-        return row(text("─".repeat(500)).fg(Color.BLUE)).length(1);
     }
 
     private Element renderFooter() {

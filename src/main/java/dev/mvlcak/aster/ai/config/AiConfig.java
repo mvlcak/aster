@@ -7,7 +7,11 @@ import org.springaicommunity.agent.tools.ShellTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.ChatMemoryRepository;
+import org.springframework.ai.chat.memory.InMemoryChatMemoryRepository;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import reactor.core.scheduler.Schedulers;
@@ -22,40 +26,33 @@ public class AiConfig {
 				.build();
 	}
 
-    @Bean
-	public ChatClient chatClient(ChatModel chatModel, GrepTool grepTool, FileSystemTools fileSystemTools, ShellTools shellTools, MessageChatMemoryAdvisor messageChatMemoryAdvisor, DiffTool diffTool) {
+	@Bean
+	public ChatMemoryRepository chatMemoryRepository() {
+		return new InMemoryChatMemoryRepository();
+	}
 
-		return ChatClient.builder(chatModel)
+	@Bean
+	public ChatClient chatClient(ChatModel chatModel,
+	                             GrepTool grepTool,
+	                             FileSystemTools fileSystemTools,
+	                             ShellTools shellTools,
+	                             MessageChatMemoryAdvisor messageChatMemoryAdvisor,
+	                             DiffTool diffTool,
+	                             ObjectProvider<SyncMcpToolCallbackProvider> mcpTools) {
+
+		ChatClient.Builder builder = ChatClient.builder(chatModel)
 				.defaultSystem("""
 						You are a helpful coding assistant named Aster. You have access to tools
-						for reading files, searching code, running shell commands,
-						
-						Always give a summary in approximately 3 sentences what you did after prompt of client.
-						Always after doing work(writing to files or creating files) use diff tool to show client what you have done.
+						for reading files, searching code, running shell commands.
 
 						Current directory: %s
 						""".formatted(System.getProperty("user.dir")))
 				.defaultAdvisors(messageChatMemoryAdvisor)
-				.defaultTools(grepTool, fileSystemTools, shellTools, diffTool)
-				.build();
-    }
-	@Bean
-	public ChatClient codeReviewClient(ChatModel chatModel) {
-		return ChatClient
-				.builder(chatModel)
-				.defaultSystem(
-						"""
-								    Your task is to review code changes, whether they do what they should.
-								    You should validate them against the given plan/task.
-								    You must adhere to best practices.
-								    Point out bugs or issues.
-								
-								    You are only given text describing the task and the code changes made -
-								    you have no tools. Base your review entirely on that text.
-								"""
-				)
-				.build();
+				.defaultTools(grepTool, fileSystemTools, shellTools, diffTool);
 
+		mcpTools.ifAvailable(builder::defaultTools);
+
+		return builder.build();
 	}
 
 }

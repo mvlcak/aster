@@ -9,6 +9,12 @@ spring:
       base-url: ${AZURE_OPENAI_ENDPOINT}
       chat:
         model: ${AZURE_OPENAI_DEPLOYMENT_NAME}
+    mcp:
+      client:
+        name: aster
+        initialized: false
+        request-timeout: 10m
+
 logging:
   console:
     enabled: ${LOG_CONSOLE:false}

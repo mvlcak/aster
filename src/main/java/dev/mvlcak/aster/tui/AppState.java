@@ -81,7 +81,7 @@ public class AppState {
     }
 
     public synchronized void appendSystemMessage(String text) {
-        messages.add(new ChatTranscriptEntry(ChatRole.ASSISTANT, text));
+        messages.add(new ChatTranscriptEntry(ChatRole.SYSTEM, text));
     }
 
     public synchronized void startAssistantResponse() {
@@ -128,15 +128,15 @@ public class AppState {
     }
 
     public synchronized void completeAssistantSummary(String text) {
-        appendSystemMessage(text);
+        messages.add(new ChatTranscriptEntry(ChatRole.ASSISTANT, text));
         streaming = true;
     }
 
     public synchronized void abortAssistantResponse(String reason) {
-        if (pendingAssistantSlot >= 0) {
+        if (pendingAssistantSlot >= 0 && pendingAssistantSlot < messages.size()) {
             messages.remove(pendingAssistantSlot);
-            pendingAssistantSlot = NO_PENDING_SLOT;
         }
+        pendingAssistantSlot = NO_PENDING_SLOT;
         streaming = false;
         activityStatus = "";
         appendSystemMessage(reason);
