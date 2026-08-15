@@ -1,4 +1,4 @@
-package dev.mvlcak.aster.ai.workflow;
+package dev.mvlcak.aster.agent.workflow;
 
 import dev.mvlcak.aster.event.AppEvent;
 import dev.mvlcak.aster.event.AppEventBus;
@@ -11,6 +11,8 @@ import org.springframework.ai.chat.client.ResponseEntity;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -26,8 +28,10 @@ public class DevelopmentWorkflow implements AgentWorkflow {
     private final ShellTools shellTools;
     private final AppState appState;
     private final AppEventBus appEventBus;
+    private final ObjectProvider<SyncMcpToolCallbackProvider> mcpTools;
 
-    public DevelopmentWorkflow(ChatClient chatClient, ChatModel chatModel, FileSystemTools fileSystemTools, GrepTool grepTool, ShellTools shellTools, AppState appState, AppEventBus appEventBus) {
+    public DevelopmentWorkflow(ChatClient chatClient, ChatModel chatModel, FileSystemTools fileSystemTools, GrepTool grepTool, ShellTools shellTools, AppState appState, AppEventBus appEventBus,
+                               ObjectProvider<SyncMcpToolCallbackProvider> mcpTools) {
         this.chatClient = chatClient;
         this.chatModel = chatModel;
         this.fileSystemTools = fileSystemTools;
@@ -35,6 +39,7 @@ public class DevelopmentWorkflow implements AgentWorkflow {
         this.shellTools = shellTools;
         this.appState = appState;
         this.appEventBus = appEventBus;
+        this.mcpTools = mcpTools;
     }
 
     public record DevelopmentSummary(String answer, String summary) {
@@ -53,9 +58,14 @@ public class DevelopmentWorkflow implements AgentWorkflow {
         //plan
         appState.setActivityStatus("planning");
 
-        ResponseEntity<ChatResponse, PlanSummary> planResponse = ChatClient
+        // The planner gets the MCP tools too, otherwise it plans local file edits for work a
+        // connected server already offers (upgrading dependencies in a remote repository, say).
+        ChatClient.Builder plannerBuilder = ChatClient
                 .builder(chatModel)
-                .defaultTools(fileSystemTools, grepTool)
+                .defaultTools(fileSystemTools, grepTool);
+        mcpTools.ifAvailable(plannerBuilder::defaultTools);
+
+        ResponseEntity<ChatResponse, PlanSummary> planResponse = plannerBuilder
                 .build()
                 .prompt(
                         """

@@ -1,4 +1,4 @@
-package dev.mvlcak.aster.ai.tool;
+package dev.mvlcak.aster.agent.tool;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import org.springframework.ai.tool.annotation.Tool;

@@ -1,37 +1,51 @@
 package dev.mvlcak.aster.tui;
 
-import dev.mvlcak.aster.mcp.McpClientSetting;
-import dev.mvlcak.aster.mcp.McpSettingsStore;
+import dev.mvlcak.aster.mcp.McpServerStatus;
+import dev.mvlcak.aster.mcp.McpStatusService;
+import dev.mvlcak.aster.mcp.McpTool;
 import dev.mvlcak.aster.tui.config.TuiProperties;
 import dev.tamboui.style.Color;
 import dev.tamboui.toolkit.app.ToolkitApp;
 import dev.tamboui.toolkit.element.Element;
-import dev.tamboui.toolkit.elements.ListElement;
 import dev.tamboui.toolkit.elements.Row;
+import dev.tamboui.toolkit.elements.TreeElement;
 import dev.tamboui.toolkit.event.EventResult;
 import dev.tamboui.tui.TuiConfig;
 import dev.tamboui.tui.event.KeyCode;
 import dev.tamboui.tui.event.KeyEvent;
+import dev.tamboui.widgets.tree.TreeNode;
 import org.jspecify.annotations.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 
 import static dev.tamboui.toolkit.Toolkit.*;
 
 public class TuiApp extends ToolkitApp {
 
+    private static final Logger log = LoggerFactory.getLogger(TuiApp.class);
+
     private final AppState state;
     private final TuiProperties tuiProperties;
     private final ChatPane chatPane;
+    private final McpStatusService mcpStatusService;
+    // Written by the probe thread, read by the render thread; null means "still probing".
+    private volatile List<McpServerStatus> mcpStatuses;
     // The list keeps its selection inside the element instance, so it must survive across renders.
-    private Element mcpList;
+    private TreeElement<?> mcpTree;
+    // The statuses mcpList was built from, so a finished probe replaces a stale list.
+    private List<McpServerStatus> renderedMcpStatuses;
+    private ScreenMode lastScreen = ScreenMode.CHAT;
 
-    public TuiApp(AppState state, TuiProperties tuiProperties, ChatPane chatPane) {
+    public TuiApp(AppState state, TuiProperties tuiProperties, ChatPane chatPane,
+                  McpStatusService mcpStatusService) {
         this.state = state;
         this.tuiProperties = tuiProperties;
         this.chatPane = chatPane;
+        this.mcpStatusService = mcpStatusService;
     }
 
     @Override
@@ -45,7 +59,14 @@ public class TuiApp extends ToolkitApp {
 
     @Override
     protected Element render() {
-        return switch (state.currentScreen()) {
+        ScreenMode screen = state.currentScreen();
+        if (screen != lastScreen) {
+            lastScreen = screen;
+            if (screen == ScreenMode.MCP) {
+                startMcpProbe();
+            }
+        }
+        return switch (screen) {
             case HELP -> renderHelpScreen();
             case CHAT -> renderChatScreen();
             case MCP -> renderMcpScreen();
@@ -53,29 +74,114 @@ public class TuiApp extends ToolkitApp {
         };
     }
 
+    /**
+     * Contacts the configured MCP servers off the render thread; the next tick picks up the result.
+     */
+    private void startMcpProbe() {
+        mcpStatuses = null;
+        Thread.ofVirtual().name("mcp-probe").start(() -> {
+            try {
+                mcpStatuses = mcpStatusService.probe();
+            } catch (RuntimeException e) {
+                log.error("Failed to probe MCP servers", e);
+                mcpStatuses = List.of();
+            }
+        });
+    }
+
     private Element renderMcpScreen() {
-        List<McpClientSetting> mcpSettings;
-        try {
-            mcpSettings = new McpSettingsStore().load();
-        } catch (IOException e) {
-            throw new RuntimeException("Mcp client settings from ~/.aster/mcp.json not loaded", e);
+        List<McpServerStatus> statuses = mcpStatuses;
+        if (statuses == null) {
+            mcpTree = null;
+            return mcpMessage(text("Contacting MCP servers…").fg(Color.YELLOW));
+        }
+        if (statuses.isEmpty()) {
+            mcpTree = null;
+            return mcpMessage(
+                    text("No MCP servers configured.").fg(Color.YELLOW),
+                    text("Add one with: aster mcp add <name> <url>").gray());
+        }
+        if (mcpTree == null || statuses != renderedMcpStatuses) {
+            renderedMcpStatuses = statuses;
+            mcpTree = buildMcpTree(statuses);
+        }
+        return mcpTree;
+    }
+
+    private Element mcpMessage(Element... lines) {
+        return panel("MCP", column(lines))
+                .rounded().fill().id("root").focusable().onKeyEvent(this::handleRootEvent);
+    }
+
+    private TreeElement buildMcpTree(List<McpServerStatus> statuses) {
+        TreeElement tree = tree();
+
+        for (McpServerStatus status : statuses) {
+
+            TreeNode node = TreeNode.of(mcpServer(status));
+            tree.add(node);
+
+            for (McpTool tool : status.tools()) {
+                node.add(
+                        TreeNode.of(tool.name())
+                                .add(TreeNode.of("description").add(TreeNode.of(tool.description())))
+                                .add(schemaNode("inputSchema", tool.inputSchema()))
+                                .add(schemaNode("outputSchema", tool.outputSchema())));
+            }
         }
 
-        if (mcpList == null) {
-            ListElement<?> list = list();
-            for (McpClientSetting setting : mcpSettings) {
-                list.add(row(text(setting.name()).bold().cyan(), spacer(2), text(setting.fullUrl()), spacer(2), text(setting.protocolType())));
-            }
-            mcpList = list
-                    .highlightColor(Color.CYAN)
-                    .title("MCP")
-                    .rounded()
-                    .fill()
-                    .id("root")
-                    .focusable()
-                    .onKeyEvent(this::handleRootEvent);
+
+        return (TreeElement) tree
+                .highlightColor(Color.CYAN)
+                .title("MCP  ·  r refresh  ·  q back")
+                .rounded()
+                .fill()
+                .id("root")
+                .focusable()
+                .onKeyEvent(this::handleRootEvent);
+    }
+
+    // A schema is a nested Map, so toString() would render it as one unreadable line.
+    // Expanding it into nodes lets the tree collapse and indent it instead.
+    private TreeNode schemaNode(String label, Map<String, Object> schema) {
+        if (schema == null || schema.isEmpty()) {
+            return TreeNode.of(label + ": empty");
         }
-        return mcpList;
+        TreeNode node = TreeNode.of(label);
+        schema.forEach((key, value) -> node.add(valueNode(key, value)));
+        return node;
+    }
+
+    private TreeNode valueNode(String label, Object value) {
+        if (value instanceof Map<?, ?> map) {
+            if (map.isEmpty()) {
+                return TreeNode.of(label + ": {}");
+            }
+            TreeNode node = TreeNode.of(label);
+            map.forEach((key, nested) -> node.add(valueNode(String.valueOf(key), nested)));
+            return node;
+        }
+        if (value instanceof List<?> list) {
+            if (list.isEmpty()) {
+                return TreeNode.of(label + ": []");
+            }
+            // Scalar-only lists stay on one line; anything nested gets its own node.
+            if (list.stream().noneMatch(item -> item instanceof Map<?, ?> || item instanceof List<?>)) {
+                return TreeNode.of(label + ": " + list);
+            }
+            TreeNode node = TreeNode.of(label);
+            for (int i = 0; i < list.size(); i++) {
+                node.add(valueNode("[" + i + "]", list.get(i)));
+            }
+            return node;
+        }
+        return TreeNode.of(label + ": " + value);
+    }
+
+    private String mcpServer(McpServerStatus status) {
+        return status.connected()
+                ? "● %s  %s  %s  %s %s".formatted(status.name(), status.url(), status.serverVersion(), status.tools().size(), (status.tools().size() == 1 ? "tool" : "tools"))
+                : "○ %s %s %s".formatted(status.name(), status.url(), "connection failed");
     }
 
     private Element renderUsageScreen() {
@@ -111,6 +217,7 @@ public class TuiApp extends ToolkitApp {
         String helpText = """
                 /clear Clear the current session transcript and workflow
                 /usage Show usage of tokens
+                /mcp Show connected mcp servers
                 /help  Show this help screen
 
                 Esc, q, or Enter returns to chat.
@@ -124,6 +231,12 @@ public class TuiApp extends ToolkitApp {
     private EventResult handleRootEvent(KeyEvent event) {
         if (event.isCtrlC()) {
             quit();
+            return EventResult.HANDLED;
+        }
+
+        // Connections are lazy, so a failed server may just need another try.
+        if (state.currentScreen() == ScreenMode.MCP && event.isCharIgnoreCase('r')) {
+            startMcpProbe();
             return EventResult.HANDLED;
         }
 

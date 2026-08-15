@@ -1,6 +1,6 @@
 package dev.mvlcak.aster.event;
 
-import dev.mvlcak.aster.ai.routing.RoutingWorkflow;
+import dev.mvlcak.aster.agent.routing.RoutingWorkflow;
 import dev.mvlcak.aster.chat.ChatService;
 import dev.mvlcak.aster.tui.AppState;
 import dev.mvlcak.aster.tui.ChatRole;
@@ -12,6 +12,8 @@ import java.util.concurrent.TimeoutException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 
 class ErrorPropagationTest {
 
@@ -19,8 +21,8 @@ class ErrorPropagationTest {
     void workflowFailureBecomesSystemMessageAndStopsSpinner() {
         AppEventBus bus = new AppEventBus();
         AppState appState = new AppState();
-        RoutingWorkflow routingWorkflow = Mockito.mock(RoutingWorkflow.class);
-        Mockito.doThrow(new IllegalStateException("boom",
+        RoutingWorkflow routingWorkflow = mock(RoutingWorkflow.class);
+        doThrow(new IllegalStateException("boom",
                         new TimeoutException("Did not observe any item within 30000ms")))
                 .when(routingWorkflow).route(Mockito.anyString());
 

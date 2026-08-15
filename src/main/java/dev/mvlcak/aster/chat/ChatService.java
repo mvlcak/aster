@@ -1,6 +1,6 @@
 package dev.mvlcak.aster.chat;
 
-import dev.mvlcak.aster.ai.routing.RoutingWorkflow;
+import dev.mvlcak.aster.agent.routing.RoutingWorkflow;
 import dev.mvlcak.aster.event.AppEvent;
 import dev.mvlcak.aster.event.AppEventBus;
 import org.slf4j.Logger;
@@ -27,8 +27,6 @@ public class ChatService {
             try {
                 routingWorkflow.route(text);
             } catch (Exception e) {
-                // Nothing else observes this thread, so an unreported failure would leave the TUI
-                // spinning forever with no explanation.
                 log.error("Workflow failed for input: {}", text, e);
                 appEventBus.dispatch(AppEvent.AssistantFail.of(e));
             }

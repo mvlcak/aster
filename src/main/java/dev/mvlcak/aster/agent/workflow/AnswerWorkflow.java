@@ -1,4 +1,4 @@
-package dev.mvlcak.aster.ai.workflow;
+package dev.mvlcak.aster.agent.workflow;
 
 import dev.mvlcak.aster.event.AppEvent;
 import dev.mvlcak.aster.event.AppEventBus;

@@ -1,6 +1,6 @@
-package dev.mvlcak.aster.ai.config;
+package dev.mvlcak.aster.agent.config;
 
-import dev.mvlcak.aster.ai.tool.DiffTool;
+import dev.mvlcak.aster.agent.tool.DiffTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springaicommunity.agent.tools.FileSystemTools;

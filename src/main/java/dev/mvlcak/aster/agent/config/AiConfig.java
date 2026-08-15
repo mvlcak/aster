@@ -1,6 +1,6 @@
-package dev.mvlcak.aster.ai.config;
+package dev.mvlcak.aster.agent.config;
 
-import dev.mvlcak.aster.ai.tool.DiffTool;
+import dev.mvlcak.aster.agent.tool.DiffTool;
 import org.springaicommunity.agent.tools.FileSystemTools;
 import org.springaicommunity.agent.tools.GrepTool;
 import org.springaicommunity.agent.tools.ShellTools;

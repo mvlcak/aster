@@ -3,6 +3,7 @@ package dev.mvlcak.aster.tui.config;
 import dev.mvlcak.aster.chat.ChatService;
 import dev.mvlcak.aster.event.AppEventBus;
 import dev.mvlcak.aster.event.AppEventLoop;
+import dev.mvlcak.aster.mcp.McpStatusService;
 import dev.mvlcak.aster.tui.AppState;
 import dev.mvlcak.aster.tui.ChatPane;
 import dev.mvlcak.aster.tui.CommandParser;
@@ -16,8 +17,9 @@ public class TuiConfig {
 
 
     @Bean
-    public TuiApp tuiApp(AppState appState, TuiProperties tuiProperties, ChatPane chatPane){
-        return new TuiApp(appState, tuiProperties, chatPane);
+    public TuiApp tuiApp(AppState appState, TuiProperties tuiProperties, ChatPane chatPane,
+                         McpStatusService mcpStatusService) {
+        return new TuiApp(appState, tuiProperties, chatPane, mcpStatusService);
     }
 
     @Bean

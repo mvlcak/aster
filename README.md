@@ -43,11 +43,6 @@ Windows
 $env:AZURE_OPENAI_API_KEY="<your-api-key>"
 $env:AZURE_OPENAI_ENDPOINT="<your-endpoint>"
 $env:AZURE_OPENAI_DEPLOYMENT_NAME="<your-deployment-name>"
-$env:DATABASE_URL="<your-db-host>"
-$env:DATABASE_NAME="<your-db-name>"
-$env:DATABASE_USER="<your-db-user>"
-$env:DATABASE_PASSWORD="<your-db-password>"
-$env:DATABASE_PORT="<your-db-port>"
 ```
 
 ## Build
@@ -103,14 +98,9 @@ endpoint:
       "name": "dependency-upgrader",
       "url": "http://localhost:8080",
       "endpoint": "/mcp",
-      "protocolType": "STREAMABLE_HTTP"
+      "protocolType": "STREAMABLE_HTTP",
+      "headers": {}
     }
   ]
 }
 ```
-
-
-
-
-
-
