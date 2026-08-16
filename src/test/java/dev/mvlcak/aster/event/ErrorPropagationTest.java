@@ -2,6 +2,7 @@ package dev.mvlcak.aster.event;
 
 import dev.mvlcak.aster.agent.routing.RoutingWorkflow;
 import dev.mvlcak.aster.chat.ChatService;
+import dev.mvlcak.aster.mcp.McpToolCallLog;
 import dev.mvlcak.aster.tui.AppState;
 import dev.mvlcak.aster.tui.ChatRole;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,8 @@ class ErrorPropagationTest {
                         new TimeoutException("Did not observe any item within 30000ms")))
                 .when(routingWorkflow).route(Mockito.anyString());
 
-        new AppEventLoop(bus, appState, new ChatService(routingWorkflow, bus)).start();
+        new AppEventLoop(bus, appState, new ChatService(routingWorkflow, bus),
+                new McpToolCallLog(bus, appState)).start();
 
         bus.dispatch(new AppEvent.UserInput("upgrade my dependencies"));
 

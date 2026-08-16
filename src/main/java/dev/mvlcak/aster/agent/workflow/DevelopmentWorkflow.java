@@ -2,6 +2,7 @@ package dev.mvlcak.aster.agent.workflow;
 
 import dev.mvlcak.aster.event.AppEvent;
 import dev.mvlcak.aster.event.AppEventBus;
+import dev.mvlcak.aster.mcp.ResilientMcpToolCallbackProvider;
 import dev.mvlcak.aster.tui.AppState;
 import org.springaicommunity.agent.tools.FileSystemTools;
 import org.springaicommunity.agent.tools.GrepTool;
@@ -11,8 +12,6 @@ import org.springframework.ai.chat.client.ResponseEntity;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
-import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -28,10 +27,10 @@ public class DevelopmentWorkflow implements AgentWorkflow {
     private final ShellTools shellTools;
     private final AppState appState;
     private final AppEventBus appEventBus;
-    private final ObjectProvider<SyncMcpToolCallbackProvider> mcpTools;
+    private final ResilientMcpToolCallbackProvider mcpTools;
 
     public DevelopmentWorkflow(ChatClient chatClient, ChatModel chatModel, FileSystemTools fileSystemTools, GrepTool grepTool, ShellTools shellTools, AppState appState, AppEventBus appEventBus,
-                               ObjectProvider<SyncMcpToolCallbackProvider> mcpTools) {
+                               ResilientMcpToolCallbackProvider mcpTools) {
         this.chatClient = chatClient;
         this.chatModel = chatModel;
         this.fileSystemTools = fileSystemTools;
@@ -60,12 +59,9 @@ public class DevelopmentWorkflow implements AgentWorkflow {
 
         // The planner gets the MCP tools too, otherwise it plans local file edits for work a
         // connected server already offers (upgrading dependencies in a remote repository, say).
-        ChatClient.Builder plannerBuilder = ChatClient
+        ResponseEntity<ChatResponse, PlanSummary> planResponse = ChatClient
                 .builder(chatModel)
-                .defaultTools(fileSystemTools, grepTool);
-        mcpTools.ifAvailable(plannerBuilder::defaultTools);
-
-        ResponseEntity<ChatResponse, PlanSummary> planResponse = plannerBuilder
+                .defaultTools(fileSystemTools, grepTool, mcpTools)
                 .build()
                 .prompt(
                         """

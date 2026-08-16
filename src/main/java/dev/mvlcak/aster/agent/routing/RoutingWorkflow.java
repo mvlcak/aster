@@ -2,13 +2,12 @@ package dev.mvlcak.aster.agent.routing;
 
 import dev.mvlcak.aster.agent.workflow.AnswerWorkflow;
 import dev.mvlcak.aster.agent.workflow.DevelopmentWorkflow;
+import dev.mvlcak.aster.mcp.ResilientMcpToolCallbackProvider;
 import dev.mvlcak.aster.tui.AppState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatModel;
-import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -43,10 +42,10 @@ public class RoutingWorkflow {
     private final DevelopmentWorkflow developmentWorkflow;
     private final AnswerWorkflow answerWorkflow;
     private final ChatModel chatModel;
-    private final ObjectProvider<SyncMcpToolCallbackProvider> mcpTools;
+    private final ResilientMcpToolCallbackProvider mcpTools;
 
     public RoutingWorkflow(DevelopmentWorkflow developmentWorkflow, AnswerWorkflow answerWorkflow, ChatModel chatModel, AppState appState,
-                           ObjectProvider<SyncMcpToolCallbackProvider> mcpTools) {
+                           ResilientMcpToolCallbackProvider mcpTools) {
         this.developmentWorkflow = developmentWorkflow;
         this.answerWorkflow = answerWorkflow;
         this.chatModel = chatModel;
@@ -76,10 +75,14 @@ public class RoutingWorkflow {
         String request = String.format(
                 """
                         Given this map that provides the ops operation as key and the description for you to build the operation value, as value: %s.
+                        
                         Analyze the input and select the most appropriate operation.
                         Return one String. Operation for which you decided.
+                        
                         Input: %s
-                        """, availableRoutes, input);
+                        ### AVAILABLE MCPS ###
+                        %s
+                        """, availableRoutes, input, mcpToolsSection());
 
         ChatClient.ChatClientRequestSpec requestSpec = ChatClient.builder(chatModel).build().prompt(request);
         ChatClient.CallResponseSpec responseSpec = requestSpec.call();
@@ -93,20 +96,9 @@ public class RoutingWorkflow {
      * Lists the tools the connected MCP servers expose
      */
     private String mcpToolsSection() {
-        String tools;
-        try {
-            tools = mcpTools.stream()
-                    .flatMap(provider -> Arrays.stream(provider.getToolCallbacks()))
-                    .map(callback -> "- %s: %s".formatted(callback.getToolDefinition().name(),
-                            callback.getToolDefinition().description()))
-                    .collect(Collectors.joining("\n"));
-        } catch (RuntimeException e) {
-            // An unreachable MCP server must not take routing (and with it every prompt) down.
-            log.warn("Could not list MCP tools for routing: {}", e.getMessage());
-            e.printStackTrace();
-            return "";
-        }
-
+        String tools = Arrays.stream(mcpTools.getToolCallbacks())
+                .map(toolCallback -> toolCallback.getToolDefinition().name())
+                .collect(Collectors.joining(","));
         if (tools.isBlank()) {
             return "";
         }

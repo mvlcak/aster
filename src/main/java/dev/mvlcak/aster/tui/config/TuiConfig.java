@@ -4,6 +4,7 @@ import dev.mvlcak.aster.chat.ChatService;
 import dev.mvlcak.aster.event.AppEventBus;
 import dev.mvlcak.aster.event.AppEventLoop;
 import dev.mvlcak.aster.mcp.McpStatusService;
+import dev.mvlcak.aster.mcp.McpToolCallLog;
 import dev.mvlcak.aster.tui.AppState;
 import dev.mvlcak.aster.tui.ChatPane;
 import dev.mvlcak.aster.tui.CommandParser;
@@ -35,8 +36,8 @@ public class TuiConfig {
 
     @Bean
     public AppEventLoop appEventLoop(AppEventBus appEventBus, AppState appState,
-                                     ChatService chatService) {
-        return new AppEventLoop(appEventBus, appState, chatService);
+                                     ChatService chatService, McpToolCallLog mcpToolCallLog) {
+        return new AppEventLoop(appEventBus, appState, chatService, mcpToolCallLog);
     }
 
     @Bean

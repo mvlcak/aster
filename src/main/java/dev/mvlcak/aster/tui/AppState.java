@@ -13,6 +13,7 @@ public class AppState {
     private ScreenMode screenMode = ScreenMode.CHAT;
     private final String workingDirectory = System.getProperty("user.dir");
     private final List<ChatTranscriptEntry> messages = new ArrayList<>();
+    private final List<String> toolCallsInFlight = new ArrayList<>();
     private boolean streaming;
     private String activityStatus = "";
     private int pendingAssistantSlot = NO_PENDING_SLOT;
@@ -26,6 +27,7 @@ public class AppState {
 
     public synchronized void clearSession() {
         this.messages.clear();
+        this.toolCallsInFlight.clear();
     }
 
     public synchronized long getLastInputTokens() {
@@ -89,6 +91,22 @@ public class AppState {
         streaming = true;
         activityStatus = "";
         thinkingStartNanos = System.nanoTime();
+        toolCallsInFlight.clear();
+    }
+
+    /**
+     * Notes that a tool ran during the current response, so a workflow can still say what happened
+     * when the model itself returns no text.
+     */
+    public synchronized void recordToolCall(String tool) {
+        toolCallsInFlight.add(tool);
+    }
+
+    /**
+     * Names of the tools called since the current response started, in call order.
+     */
+    public synchronized List<String> toolCallsInFlight() {
+        return List.copyOf(toolCallsInFlight);
     }
 
     public synchronized void appendAssistantDelta(String delta) {
@@ -133,7 +151,10 @@ public class AppState {
     }
 
     public synchronized void abortAssistantResponse(String reason) {
-        if (pendingAssistantSlot >= 0 && pendingAssistantSlot < messages.size()) {
+        // Tool calls land in the transcript at the slot the assistant reply was going to take, and
+        // what they reported stays true even when the response itself fails.
+        if (pendingAssistantSlot >= 0 && pendingAssistantSlot < messages.size()
+                && messages.get(pendingAssistantSlot).role() == ChatRole.ASSISTANT) {
             messages.remove(pendingAssistantSlot);
         }
         pendingAssistantSlot = NO_PENDING_SLOT;

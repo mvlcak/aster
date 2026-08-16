@@ -15,7 +15,6 @@ import java.nio.file.Paths;
 @Configuration
 public class ToolConfig {
 
-
     private static final Logger log = LoggerFactory.getLogger(ToolConfig.class);
 
     @Bean
@@ -48,6 +47,5 @@ public class ToolConfig {
     public DiffTool diffTool() {
         return DiffTool.builder().build();
     }
-
 
 }
